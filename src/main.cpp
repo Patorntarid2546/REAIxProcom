@@ -7,6 +7,7 @@
 #include <windows.h>
 #include <cstdlib>
 #include <ctime>
+#include<vector>
 
 #include "poom.h"
 #include "meepooh.h"
@@ -16,7 +17,7 @@
 int main()
 {
     srand(time(0));
-    
+
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive escape from atlantis", sf::Style::Fullscreen);
 
     while (window.isOpen())

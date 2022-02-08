@@ -4,6 +4,8 @@
 #include <string>
 #include <iostream>
 #include <windows.h>
+#include <cstdlib>
+#include <vector>
 
 using namespace std;
 
@@ -45,7 +47,24 @@ string Network::recievedtext(){
 		return text;
 	}
 	else{
-		cout << "Error" << endl;
-		return "Error";
+		return "Network::recievedtext() --> Error";
 	}
+}
+
+//--------------------------------------------------------------------------------------------------------------------//
+
+class Boardgame_Water{
+	float x;
+	float y;
+	char type;
+	public :
+		string RandomImage();
+};
+
+string Boardgame_Water::RandomImage(){
+	int a = rand()%3;
+	if(a == 0) return "image\\Texture_Sea\\seawaves.png";
+	else if(a == 1) return "image\\Texture_Sea\\seawaves1.png";
+	else if(a == 2) return "image\\Texture_Sea\\seawaves2.png";
+	else return "Boardgame_Water::RandomImage() --> Error";
 }
