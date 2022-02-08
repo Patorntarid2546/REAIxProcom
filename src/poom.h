@@ -1,6 +1,9 @@
+#pragma once
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
+
 #include <string>
 #include <iostream>
 #include <windows.h>
@@ -53,18 +56,42 @@ string Network::recievedtext(){
 
 //--------------------------------------------------------------------------------------------------------------------//
 
-class Boardgame_Water{
-	float x;
-	float y;
-	char type;
+class BoardgameWater{
+	int x;
+	int y;
+
+	sf::Texture img;
+	sf::Sprite img2;
+	void Texture_Img();
+	void Sprite_Img();
+
 	public :
-		string RandomImage();
+		BoardgameWater(int,int);
+		void DrawWater(sf::RenderWindow &);
+
 };
 
-string Boardgame_Water::RandomImage(){
-	int a = rand()%3;
-	if(a == 0) return "image\\Texture_Sea\\seawaves.png";
-	else if(a == 1) return "image\\Texture_Sea\\seawaves1.png";
-	else if(a == 2) return "image\\Texture_Sea\\seawaves2.png";
-	else return "Boardgame_Water::RandomImage() --> Error";
+BoardgameWater::BoardgameWater(int a, int b){
+	x = a; y = b;
 }
+
+void BoardgameWater::Texture_Img(){
+	string ref;
+	int a = rand()%3;
+	if(a == 0) ref = "image\\Texture_Sea\\seawaves.png";
+	else if(a == 1) ref = "image\\Texture_Sea\\seawaves1.png";
+	else if(a == 2) ref = "image\\Texture_Sea\\seawaves2.png";
+	else ref =  "BoardgameWater::Texture_Img() --> Error";
+	img.loadFromFile(ref);
+}
+void BoardgameWater::Sprite_Img(){
+	img2.setTexture(img);
+	img2.setPosition(x,y);
+}
+
+void BoardgameWater::DrawWater(sf::RenderWindow &window){
+	Texture_Img();
+	Sprite_Img();
+	window.draw(img2);
+}
+

@@ -1,0 +1,20 @@
+class Network
+	* สำหรับรับส่งข้อมูล multiplayer
+	* ฟังก์ชัน
+		- connect(mode, ip)
+			-- สำหรับเชื่อมต่อ server และ client
+			-- mode มี s = server, c = client
+			-- ip คือ ip ของเครื่อง server
+		- senttext(text)
+			-- สำหรับส่งข้อความ
+			-- text คือ ข้อความที่ต้องการส่ง
+		- recievedtext
+			-- สำหรับรับข้อความ
+class BoardgameWater
+	* สำหรับแสดงผลน้ำในเกม
+	* ฟังก์ชัน
+		- BoardgameWater(int a, int b)
+			-- กำหนดแกน x = a, แกน y = b
+		- DrawWater(sf::RenderWindow &window)
+			-- รับค่า window จาก main
+			-- แสดงผลภาพน้ำแบบสุ่มในแต่ละช่อง
