@@ -26,14 +26,25 @@ int main()
 
     // พื้นหลังน้ำ
     vector<Boardgame> water;
-    for(double x = 128; x < (128+(64*14)); x += 64) for(double y = 64; y < (128+(64*14)); y+= 64) water.push_back(Boardgame(x,y,"water"));
+    for(double x = 128; x < (128+(64*15)); x += 64) for(double y = 64; y < (128+(64*14)); y+= 64) water.push_back(Boardgame(x,y,"water"));
 
-    //พื้นหลังป่า
+    // พื้นหลังป่า
     vector<Boardgame> forest;
     for(int x = 128; x <= (128+(64*2)); x += 64) for(int y = 64; y <= (64+(64*2)); y+= 64) forest.push_back(Boardgame(x,y,"forest"));
-    for(int x = (64*13); x <= ((64*13)+(64*2)); x += 64) for(int y = 64; y <= (64+(64*2)); y+= 64) forest.push_back(Boardgame(x,y,"forest"));
+    for(int x = (64*14); x <= ((64*14)+(64*2)); x += 64) for(int y = 64; y <= (64+(64*2)); y+= 64) forest.push_back(Boardgame(x,y,"forest"));
     for(int x = 128; x <= (128+(64*2)); x += 64) for(int y = (64*13); y <= ((64*13)+(64*2)); y+= 64) forest.push_back(Boardgame(x,y,"forest"));
-    for(int x = (64*13); x <= ((64*13)+(64*2)); x += 64) for(int y = (64*13); y <= ((64*13)+(64*2)); y+= 64) forest.push_back(Boardgame(x,y,"forest"));
+    for(int x = (64*14); x <= ((64*14)+(64*2)); x += 64) for(int y = (64*13); y <= ((64*13)+(64*2)); y+= 64) forest.push_back(Boardgame(x,y,"forest"));
+
+    // พื้นที่ดิน
+    vector<Boardgame> solid;
+    int i = 0;
+    for(int x = 320; x < (320+(64*9)); x += 64){
+        for(int y = (64*8)-(i*(x/5)); y < (64*8)+((i+1)*2*x/5); y+= 64){
+            cout << "x : " << x << ", y : " << y << endl;
+            solid.push_back(Boardgame(x,y,"island"));
+        }
+        i++;
+    }
 
     // ลูปตัวเกม
     while (window.isOpen())
@@ -56,6 +67,9 @@ int main()
 
         // พื้นหลังป่า
         for(int i = 0; i < int(forest.size()); i++) forest[i].Draw(window);
+
+        //พื้นที่ดิน
+         for(int i = 0; i < int(solid.size()); i++) solid[i].Draw(window);
 
         // แสดงเฟรมใหม่
         window.display();

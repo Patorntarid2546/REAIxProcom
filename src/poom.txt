@@ -10,11 +10,11 @@ class Network
 			-- text คือ ข้อความที่ต้องการส่ง
 		- recievedtext
 			-- สำหรับรับข้อความ
-class BoardgameWater
+class Boardgame
 	* สำหรับแสดงผลน้ำในเกม
 	* ฟังก์ชัน
-		- BoardgameWater(int a, int b)
+		- Boardgame(int a, int b)
 			-- กำหนดแกน x = a, แกน y = b
-		- DrawWater(sf::RenderWindow &window)
+		- Draw(sf::RenderWindow &window)
 			-- รับค่า window จาก main
 			-- แสดงผลภาพน้ำแบบสุ่มในแต่ละช่อง
