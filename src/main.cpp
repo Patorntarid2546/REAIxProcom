@@ -69,10 +69,6 @@ int main()
 		for (int i = 0; i < int(forest.size()); i++)
 			forest[i].Draw(window);
 
-		//พื้นที่ดิน
-		for (int i = 0; i < int(solid.size()); i++)
-			solid[i].Draw(window);
-
 		// แสดงเฟรมใหม่
 		window.display();
 	}
