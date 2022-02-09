@@ -96,3 +96,36 @@ void BoardgameWater::DrawWater(sf::RenderWindow &window){
 }
 
 //--------------------------------------------------------------------------------------------------------------------//
+
+class BoardgameEscape{
+	int x;
+	int y;
+
+	sf::Texture img;
+	sf::Sprite img2;
+	void Texture_Img();
+	void Sprite_Img();
+
+	public :
+		BoardgameEscape(int,int);
+		void DrawEscape(sf::RenderWindow &);
+
+};
+
+BoardgameEscape::BoardgameEscape(int a, int b){
+	x = a; y = b;
+	Texture_Img();
+	Sprite_Img();
+}
+
+void BoardgameEscape::Texture_Img(){
+	img.loadFromFile("image\\Texture_forest\\Forest.png");
+}
+void BoardgameEscape::Sprite_Img(){
+	img2.setTexture(img);
+	img2.setPosition(x,y);
+}
+
+void BoardgameEscape::DrawEscape(sf::RenderWindow &window){
+	window.draw(img2);
+}
