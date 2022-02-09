@@ -114,8 +114,6 @@ class BoardgameEscape{
 
 BoardgameEscape::BoardgameEscape(int a, int b){
 	x = a; y = b;
-	Texture_Img();
-	Sprite_Img();
 }
 
 void BoardgameEscape::Texture_Img(){
@@ -127,5 +125,7 @@ void BoardgameEscape::Sprite_Img(){
 }
 
 void BoardgameEscape::DrawEscape(sf::RenderWindow &window){
+	Texture_Img();
+	Sprite_Img();
 	window.draw(img2);
 }

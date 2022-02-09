@@ -26,11 +26,14 @@ int main()
 
     // พื้นหลังน้ำ
     vector<BoardgameWater> water;
-    for(int x = 0; x <= 1920; x += 75){
-        for(int y = 0; y <= 1080; y+= 75){
-            water.push_back(BoardgameWater(x,y));
-        }
-    }
+    for(double x = 127; x < (127+(63.5*14)); x += 63.5) for(double y = 63.5; y < (127+(63.5*14)); y+= 63.5) water.push_back(BoardgameWater(x,y));
+
+    //พื้นหลังพื้นที่หนี
+    vector<BoardgameEscape> escape;
+    for(int x = 127; x < (127+(63.5*2)); x += 63.5) for(int y = 63.5; y < (63.5+(63.5*2)); y+= 63.5) escape.push_back(BoardgameEscape(x,y));
+    for(int x = (63.5*13); x < ((63.5*13)+(63.5*2)); x += 63.5) for(int y = 63.5; y < (63.5+(63.5*2)); y+= 63.5) escape.push_back(BoardgameEscape(x,y));
+    for(int x = 127; x < (127+(63.5*2)); x += 63.5) for(int y = (63.5*13); y < ((63.5*13)+(63.5*2)); y+= 63.5) escape.push_back(BoardgameEscape(x,y));
+    for(int x = (63.5*13); x < ((63.5*13)+(63.5*2)); x += 63.5) for(int y = (63.5*13); y < ((63.5*13)+(63.5*2)); y+= 63.5) escape.push_back(BoardgameEscape(x,y));
 
     // ลูปตัวเกม
     while (window.isOpen())
@@ -48,8 +51,10 @@ int main()
         // เคลียร์เฟรมเดิม
         window.clear();
 
-        // พื้นหลังน้ำ
+        //พื้นหลังน้ำ
         for(int i = 0; i < int(water.size()); i++) water[i].DrawWater(window);
+
+        for(int i = 0; i < int(escape.size()); i++) escape[i].DrawEscape(window);
 
         // แสดงเฟรมใหม่
         window.display();
