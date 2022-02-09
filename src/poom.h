@@ -56,9 +56,11 @@ string Network::recievedtext(){
 
 //--------------------------------------------------------------------------------------------------------------------//
 
-class BoardgameWater{
+class Boardgame{
 	int x;
 	int y;
+	string type;
+	string tile;
 
 	sf::Texture img;
 	sf::Sprite img2;
@@ -66,65 +68,50 @@ class BoardgameWater{
 	void Sprite_Img();
 
 	public :
-		BoardgameWater(int,int);
-		void DrawWater(sf::RenderWindow &);
+		Boardgame(int,int,string);
+		void Draw(sf::RenderWindow &);
 
 };
 
-BoardgameWater::BoardgameWater(int a, int b){
-	x = a; y = b;
+Boardgame::Boardgame(int a, int b, string c){
+	x = a; y = b; type = c;
 }
 
-void BoardgameWater::Texture_Img(){
+void Boardgame::Texture_Img(){
 	string ref;
-	int a = rand()%3;
-	if(a == 0) ref = "image\\Texture_Sea\\seawaves.png";
-	else if(a == 1) ref = "image\\Texture_Sea\\seawaves1.png";
-	else if(a == 2) ref = "image\\Texture_Sea\\seawaves2.png";
-	else ref =  "BoardgameWater::Texture_Img() --> Error";
+	if(type == "water"){
+		int a = rand()%3;
+		if(a == 0) ref = "image\\Texture_Sea\\seawaves.png";
+		else if(a == 1) ref = "image\\Texture_Sea\\seawaves1.png";
+		else if(a == 2) ref = "image\\Texture_Sea\\seawaves2.png";
+		else ref =  "Boardgame::Texture_Img() --> Error";
+	}
+	else if(type == "forest"){
+		ref = "image\\Texture_forest\\Forest.png";
+	}
+	else if(type == "island"){
+		int a = rand()%3;
+		if(a == 0){
+			tile = "sand";
+			ref = "image\\Texture_Sand\\sand.png";
+		}
+		else if(a == 1){
+			tile = "solid";
+			ref = "image\\Texture_Solid\\solid.png";
+		}
+		else if(a == 2){
+			tile = "hill";
+			ref = "image\\Texture_Hill\\hill.png";
+		}
+	}
 	img.loadFromFile(ref);
 }
-void BoardgameWater::Sprite_Img(){
+void Boardgame::Sprite_Img(){
 	img2.setTexture(img);
 	img2.setPosition(x,y);
 }
 
-void BoardgameWater::DrawWater(sf::RenderWindow &window){
-	Texture_Img();
-	Sprite_Img();
-	window.draw(img2);
-}
-
-//--------------------------------------------------------------------------------------------------------------------//
-
-class BoardgameEscape{
-	int x;
-	int y;
-
-	sf::Texture img;
-	sf::Sprite img2;
-	void Texture_Img();
-	void Sprite_Img();
-
-	public :
-		BoardgameEscape(int,int);
-		void DrawEscape(sf::RenderWindow &);
-
-};
-
-BoardgameEscape::BoardgameEscape(int a, int b){
-	x = a; y = b;
-}
-
-void BoardgameEscape::Texture_Img(){
-	img.loadFromFile("image\\Texture_forest\\Forest.png");
-}
-void BoardgameEscape::Sprite_Img(){
-	img2.setTexture(img);
-	img2.setPosition(x,y);
-}
-
-void BoardgameEscape::DrawEscape(sf::RenderWindow &window){
+void Boardgame::Draw(sf::RenderWindow &window){
 	Texture_Img();
 	Sprite_Img();
 	window.draw(img2);

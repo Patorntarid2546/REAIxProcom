@@ -22,18 +22,18 @@ int main()
     srand(time(0));
 
     // กำหนดขนาด window ความละเอียด 1920*1080 แบบเต็มจอ
-	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive escape from atlantis", sf::Style::Fullscreen);
+	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive forest from atlantis", sf::Style::Fullscreen);
 
     // พื้นหลังน้ำ
-    vector<BoardgameWater> water;
-    for(double x = 128; x < (128+(64*14)); x += 64) for(double y = 64; y < (128+(64*14)); y+= 64) water.push_back(BoardgameWater(x,y));
+    vector<Boardgame> water;
+    for(double x = 128; x < (128+(64*14)); x += 64) for(double y = 64; y < (128+(64*14)); y+= 64) water.push_back(Boardgame(x,y,"water"));
 
     //พื้นหลังป่า
-    vector<BoardgameEscape> escape;
-    for(int x = 128; x <= (128+(64*2)); x += 64) for(int y = 64; y <= (64+(64*2)); y+= 64) escape.push_back(BoardgameEscape(x,y));
-    for(int x = (64*13); x <= ((64*13)+(64*2)); x += 64) for(int y = 64; y <= (64+(64*2)); y+= 64) escape.push_back(BoardgameEscape(x,y));
-    for(int x = 128; x <= (128+(64*2)); x += 64) for(int y = (64*13); y <= ((64*13)+(64*2)); y+= 64) escape.push_back(BoardgameEscape(x,y));
-    for(int x = (64*13); x <= ((64*13)+(64*2)); x += 64) for(int y = (64*13); y <= ((64*13)+(64*2)); y+= 64) escape.push_back(BoardgameEscape(x,y));
+    vector<Boardgame> forest;
+    for(int x = 128; x <= (128+(64*2)); x += 64) for(int y = 64; y <= (64+(64*2)); y+= 64) forest.push_back(Boardgame(x,y,"forest"));
+    for(int x = (64*13); x <= ((64*13)+(64*2)); x += 64) for(int y = 64; y <= (64+(64*2)); y+= 64) forest.push_back(Boardgame(x,y,"forest"));
+    for(int x = 128; x <= (128+(64*2)); x += 64) for(int y = (64*13); y <= ((64*13)+(64*2)); y+= 64) forest.push_back(Boardgame(x,y,"forest"));
+    for(int x = (64*13); x <= ((64*13)+(64*2)); x += 64) for(int y = (64*13); y <= ((64*13)+(64*2)); y+= 64) forest.push_back(Boardgame(x,y,"forest"));
 
     // ลูปตัวเกม
     while (window.isOpen())
@@ -52,10 +52,10 @@ int main()
         window.clear();
 
         // พื้นหลังน้ำ
-        for(int i = 0; i < int(water.size()); i++) water[i].DrawWater(window);
+        for(int i = 0; i < int(water.size()); i++) water[i].Draw(window);
 
         // พื้นหลังป่า
-        for(int i = 0; i < int(escape.size()); i++) escape[i].DrawEscape(window);
+        for(int i = 0; i < int(forest.size()); i++) forest[i].Draw(window);
 
         // แสดงเฟรมใหม่
         window.display();

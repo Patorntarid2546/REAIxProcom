@@ -4946,12 +4946,12 @@ namespace Catch {
 namespace Catch {
 
     class TestSpecParser {
-        enum Mode{ None, Name, QuotedName, Tag, EscapedName };
+        enum Mode{ None, Name, QuotedName, Tag, forestdName };
         Mode m_mode = None;
         bool m_exclusion = false;
         std::size_t m_start = std::string::npos, m_pos = 0;
         std::string m_arg;
-        std::vector<std::size_t> m_escapeChars;
+        std::vector<std::size_t> m_forestChars;
         TestSpec::Filter m_currentFilter;
         TestSpec m_testSpec;
         ITagAliasRegistry const* m_tagAliases = nullptr;
@@ -4965,15 +4965,15 @@ namespace Catch {
     private:
         void visitChar( char c );
         void startNewMode( Mode mode, std::size_t start );
-        void escape();
+        void forest();
         std::string subString() const;
 
         template<typename T>
         void addPattern() {
             std::string token = subString();
-            for( std::size_t i = 0; i < m_escapeChars.size(); ++i )
-                token = token.substr( 0, m_escapeChars[i]-m_start-i ) + token.substr( m_escapeChars[i]-m_start-i+1 );
-            m_escapeChars.clear();
+            for( std::size_t i = 0; i < m_forestChars.size(); ++i )
+                token = token.substr( 0, m_forestChars[i]-m_start-i ) + token.substr( m_forestChars[i]-m_start-i+1 );
+            m_forestChars.clear();
             if( startsWith( token, "exclude:" ) ) {
                 m_exclusion = true;
                 token = token.substr( 8 );
@@ -9770,9 +9770,9 @@ namespace {
         }
 
     private:
-        void setColour( const char* _escapeCode ) {
+        void setColour( const char* _forestCode ) {
             getCurrentContext().getConfig()->stream()
-                << '\033' << _escapeCode;
+                << '\033' << _forestCode;
         }
     };
 
@@ -13930,7 +13930,7 @@ namespace Catch {
         m_exclusion = false;
         m_start = std::string::npos;
         m_arg = m_tagAliases->expandAliases( arg );
-        m_escapeChars.clear();
+        m_forestChars.clear();
         for( m_pos = 0; m_pos < m_arg.size(); ++m_pos )
             visitChar( m_arg[m_pos] );
         if( m_mode == Name )
@@ -13949,7 +13949,7 @@ namespace Catch {
             case '~': m_exclusion = true; return;
             case '[': return startNewMode( Tag, ++m_pos );
             case '"': return startNewMode( QuotedName, ++m_pos );
-            case '\\': return escape();
+            case '\\': return forest();
             default: startNewMode( Name, m_pos ); break;
             }
         }
@@ -13966,9 +13966,9 @@ namespace Catch {
                 startNewMode( Tag, ++m_pos );
             }
             else if( c == '\\' )
-                escape();
+                forest();
         }
-        else if( m_mode == EscapedName )
+        else if( m_mode == forestdName )
             m_mode = Name;
         else if( m_mode == QuotedName && c == '"' )
             addPattern<TestSpec::NamePattern>();
@@ -13979,11 +13979,11 @@ namespace Catch {
         m_mode = mode;
         m_start = start;
     }
-    void TestSpecParser::escape() {
+    void TestSpecParser::forest() {
         if( m_mode == None )
             m_start = m_pos;
-        m_mode = EscapedName;
-        m_escapeChars.push_back( m_pos );
+        m_mode = forestdName;
+        m_forestChars.push_back( m_pos );
     }
     std::string TestSpecParser::subString() const { return m_arg.substr( m_start, m_pos - m_start ); }
 
@@ -14497,7 +14497,7 @@ namespace {
         CATCH_INTERNAL_ERROR("Invalid multibyte utf-8 start byte encountered");
     }
 
-    void hexEscapeChar(std::ostream& os, unsigned char c) {
+    void hexforestChar(std::ostream& os, unsigned char c) {
         std::ios_base::fmtflags f(os.flags());
         os << "\\x"
             << std::uppercase << std::hex << std::setfill('0') << std::setw(2)
@@ -14540,10 +14540,10 @@ namespace {
             default:
                 // Check for control characters and invalid utf-8
 
-                // Escape control characters in standard ascii
+                // forest control characters in standard ascii
                 // see http://stackoverflow.com/questions/404107/why-are-control-characters-illegal-in-xml-1-0
                 if (c < 0x09 || (c > 0x0D && c < 0x20) || c == 0x7F) {
-                    hexEscapeChar(os, c);
+                    hexforestChar(os, c);
                     break;
                 }
 
@@ -14554,21 +14554,21 @@ namespace {
                 }
 
                 // UTF-8 territory
-                // Check if the encoding is valid and if it is not, hex escape bytes.
+                // Check if the encoding is valid and if it is not, hex forest bytes.
                 // Important: We do not check the exact decoded values for validity, only the encoding format
                 // First check that this bytes is a valid lead byte:
                 // This means that it is not encoded as 1111 1XXX
                 // Or as 10XX XXXX
                 if (c <  0xC0 ||
                     c >= 0xF8) {
-                    hexEscapeChar(os, c);
+                    hexforestChar(os, c);
                     break;
                 }
 
                 auto encBytes = trailingBytes(c);
                 // Are there enough bytes left to avoid accessing out-of-bounds memory?
                 if (idx + encBytes - 1 >= m_str.size()) {
-                    hexEscapeChar(os, c);
+                    hexforestChar(os, c);
                     break;
                 }
                 // The header is valid, check data
@@ -14592,7 +14592,7 @@ namespace {
                     // Encoded value out of range
                     (value >= 0x110000)
                     ) {
-                    hexEscapeChar(os, c);
+                    hexforestChar(os, c);
                     break;
                 }
 
