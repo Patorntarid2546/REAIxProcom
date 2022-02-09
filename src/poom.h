@@ -59,7 +59,6 @@ string Network::recievedtext(){
 class Boardgame{
 	int x;
 	int y;
-	int z;
 	string type;
 	string tile;
 
