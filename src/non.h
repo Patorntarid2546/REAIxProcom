@@ -9,6 +9,7 @@ class island
 	int islandtype;
 	int islandsize;
 	int y;
+	int z;
 
 public:
 };
