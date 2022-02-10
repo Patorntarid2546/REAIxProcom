@@ -1,12 +1,14 @@
+#include "main.cpp"
 #include <iostream>
 #include <string>
 #include <vector>
-
 using namespace std;
 
-class randomkor
+class island
 {
-	int x;
+	int islandtype;
+	int islandsize;
+	int y;
 
 public:
 };
