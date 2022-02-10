@@ -59,7 +59,7 @@ string Network::recievedtext(){
 class Boardgame{
 	int x;
 	int y;
-	int z;
+
 	string type;
 	string tile;
 
@@ -81,11 +81,11 @@ Boardgame::Boardgame(int a, int b, string c){
 void Boardgame::Texture_Img(){
 	string ref;
 	if(type == "water"){
-		int a = rand()%3;
-		if(a == 0) ref = "image\\Texture_Sea\\seawaves.png";
-		else if(a == 1) ref = "image\\Texture_Sea\\seawaves1.png";
-		else if(a == 2) ref = "image\\Texture_Sea\\seawaves2.png";
-		else ref =  "Boardgame::Texture_Img() --> Error";
+		int a = rand()%100;
+		if(a <= 96) ref = "image\\Texture_Sea\\seawaves4.png";
+		else if(a <= 97) ref = "image\\Texture_Sea\\seawaves1.png";
+		else if(a <= 98) ref = "image\\Texture_Sea\\seawaves2.png";
+		else ref =  "image\\Texture_Sea\\seawaves.png";
 	}
 	else if(type == "forest"){
 		ref = "image\\Texture_forest\\Forest.png";

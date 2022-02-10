@@ -18,3 +18,4 @@ class Boardgame
 		- Draw(sf::RenderWindow &window)
 			-- รับค่า window จาก main
 			-- แสดงผลภาพน้ำแบบสุ่มในแต่ละช่อง
+
