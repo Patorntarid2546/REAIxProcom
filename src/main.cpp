@@ -21,6 +21,7 @@ int main()
 {
 	srand(time(0));
 
+	// หน้าต่างงเริ่มเกม
 	Startgame a;
 	a.start();
 

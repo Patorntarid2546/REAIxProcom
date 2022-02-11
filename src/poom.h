@@ -10,6 +10,8 @@
 #include <cstdlib>
 #include <vector>
 #include <ctime>
+#include <chrono>
+#include <sys/time.h>
 
 using namespace std;
 
@@ -60,6 +62,8 @@ string Network::recievedtext(){
 class Boardgame{
 	int x;
 	int y;
+
+	string list_water[3] = {"image\\Texture_Sea\\seawaves.png","image\\Texture_Sea\\seawaves1.png", "image\\Texture_Sea\\seawaves2.png"};
 
 	string type;
 	string tile;
@@ -124,15 +128,22 @@ void Boardgame::Draw(sf::RenderWindow &window){
 class Startgame{
 	sf::Texture img;
 	sf::Sprite img2;
+	string pic[3] = {"image\\Startgame\\startgame2.jpg","image\\Startgame\\startgame1.jpg","image\\Startgame\\startgame3.jpg"};
 	public :
+		int GetTimes();
 		void start();
 };
 
+int Startgame::GetTimes(){
+	const auto now = std::chrono::system_clock::now();
+	const auto nowMs = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()) % 1000;
+	stringstream nowSs;
+	nowSs << std::setfill('0') << std::setw(3) << nowMs.count();
+  	return stoi(nowSs.str());
+}
+
 void Startgame::start(){
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive forest from atlantis", sf::Style::Fullscreen);
-
-	sf::Clock clock1sec;
-	clock1sec.restart();
 
 	string ref = "image\\Startgame\\startgame1.jpg";
 
@@ -140,38 +151,33 @@ void Startgame::start(){
 	img2.setTexture(img);
 	img2.setPosition(0,0);
 
-	time_t times1;
-	time_t times2;
-	time(&times1);
-
-
-
+	int times1;
 	int num = 2;
 
 	while (window.isOpen())
 	{
-		time(&times1);
+		times1 = GetTimes();
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
-
+		cout << GetTimes() << endl;
 		window.clear();
-		if(times2 != times1){
-			if(num == 2) ref = "image\\Startgame\\startgame2.jpg";
-			else if(num == 1) ref = "image\\Startgame\\startgame1.jpg";
-			else if(num == 3) ref = "image\\Startgame\\startgame3.jpg";
-			img.loadFromFile(ref);
+		if((times1%333) == 0){
+			img.loadFromFile(pic[num]);
 			img2.setTexture(img);
 			img2.setPosition(0,0);
-			times2 = times1;
 			num++;
 			if(num >= 4) num = 1;
 		}
+
 		window.draw(img2);
 
 		window.display();
 	}
 }
+
+//--------------------------------------------------------------------------------------------------------------------//
+
