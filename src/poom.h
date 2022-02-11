@@ -9,6 +9,7 @@
 #include <windows.h>
 #include <cstdlib>
 #include <vector>
+#include <ctime>
 
 using namespace std;
 
@@ -116,4 +117,61 @@ void Boardgame::Draw(sf::RenderWindow &window){
 	Texture_Img();
 	Sprite_Img();
 	window.draw(img2);
+}
+
+//--------------------------------------------------------------------------------------------------------------------//
+
+class Startgame{
+	sf::Texture img;
+	sf::Sprite img2;
+	public :
+		void start();
+};
+
+void Startgame::start(){
+	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive forest from atlantis", sf::Style::Fullscreen);
+
+	sf::Clock clock1sec;
+	clock1sec.restart();
+
+	string ref = "image\\Startgame\\startgame1.jpg";
+
+	img.loadFromFile(ref);
+	img2.setTexture(img);
+	img2.setPosition(0,0);
+
+	time_t times1;
+	time_t times2;
+	time(&times1);
+
+
+
+	int num = 2;
+
+	while (window.isOpen())
+	{
+		time(&times1);
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
+
+		window.clear();
+		if(times2 != times1){
+			if(num == 2) ref = "image\\Startgame\\startgame2.jpg";
+			else if(num == 1) ref = "image\\Startgame\\startgame1.jpg";
+			else if(num == 3) ref = "image\\Startgame\\startgame3.jpg";
+			img.loadFromFile(ref);
+			img2.setTexture(img);
+			img2.setPosition(0,0);
+			times2 = times1;
+			num++;
+			if(num >= 4) num = 1;
+		}
+		window.draw(img2);
+
+		window.display();
+	}
 }

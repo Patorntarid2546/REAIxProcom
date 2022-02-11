@@ -17,9 +17,12 @@
 #include "north.h"
 #include "poom.h"
 
-	int main()
+int main()
 {
 	srand(time(0));
+
+	Startgame a;
+	a.start();
 
 	// กำหนดขนาด window ความละเอียด 1920*1080 แบบเต็มจอ
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive forest from atlantis", sf::Style::Fullscreen);
