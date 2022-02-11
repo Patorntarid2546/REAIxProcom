@@ -1,25 +1,37 @@
+#pragma once
+
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+#include <SFML/Network.hpp>
+
+
 #include <iostream>
 #include <string>
-ีusing namespace std;
+#include <cstdlib>
+
+using namespace std;
+
 class islandrandom
 {
 	int x;
 	int y;
 	string type;
+	sf::Texture img;
 
-public:
-	random(int, int, string);
-	void Texture_Img();
+	public:
+		islandrandom(int, int, string);
+		void Texture_Img();
 };
-islandrandom::random(int A, int B)
+islandrandom::islandrandom(int A, int B, string C)
 {
 	x = A;
 	y = B;
+	type = C;
 }
 void islandrandom::Texture_Img()
 {
 	int N = rand() % 3;
-	string = pic;
+	string pic;
 	if (N == 0)
 	{
 		type = "sand";
@@ -35,6 +47,5 @@ void islandrandom::Texture_Img()
 		type = "hill";
 		pic = "image\\Texture_Hill\\hill.png";
 	}
-}
-img.loadFromFile(pic);
+	img.loadFromFile(pic);
 }

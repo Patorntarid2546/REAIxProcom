@@ -1,4 +1,4 @@
-import library สำหรับ gui
+//import library สำหรับ gui
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
