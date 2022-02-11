@@ -1,4 +1,4 @@
-// import library สำหรับ gui
+import library สำหรับ gui
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
@@ -17,7 +17,7 @@
 #include "north.h"
 #include "poom.h"
 
-int main()
+	int main()
 {
 	srand(time(0));
 
@@ -45,6 +45,14 @@ int main()
 		for (int y = (64 * 13); y <= ((64 * 13) + (64 * 2)); y += 64)
 			forest.push_back(Boardgame(x, y, "forest"));
 
+	// พื้นเกาะ
+	//vector<random> island;
+	//int islandsize = rand() % 3;
+	//for (int x = 64 * 9; x >= 64 * 5; x -= 64)
+	//{
+	//for (int y = 64 * 8; y >= 64 * 4; x -= 64)
+	//	island.push_back(random(x, y);
+	//}
 	// ลูปตัวเกม
 	while (window.isOpen())
 	{
