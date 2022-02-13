@@ -1,4 +1,4 @@
-// import library สำหรับ gui
+//import library สำหรับ gui
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
@@ -17,9 +17,16 @@
 #include "north.h"
 #include "poom.h"
 
+// import class สำหรับหน้าเริ่มเกม
+#include "StartGame.h"
+
 int main()
 {
 	srand(time(0));
+
+	// หน้าต่างงเริ่มเกม
+	Startgame a;
+	a.start();
 
 	// กำหนดขนาด window ความละเอียด 1920*1080 แบบเต็มจอ
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive forest from atlantis", sf::Style::Fullscreen);
@@ -45,6 +52,14 @@ int main()
 		for (int y = (64 * 13); y <= ((64 * 13) + (64 * 2)); y += 64)
 			forest.push_back(Boardgame(x, y, "forest"));
 
+	// พื้นเกาะ
+	//vector<random> island;
+	//int islandsize = rand() % 3;
+	//for (int x = 64 * 9; x >= 64 * 5; x -= 64)
+	//{
+	//for (int y = 64 * 8; y >= 64 * 4; x -= 64)
+	//	island.push_back(random(x, y);
+	//}
 	// ลูปตัวเกม
 	while (window.isOpen())
 	{

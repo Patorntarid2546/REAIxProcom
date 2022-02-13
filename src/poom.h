@@ -9,6 +9,9 @@
 #include <windows.h>
 #include <cstdlib>
 #include <vector>
+#include <ctime>
+#include <chrono>
+#include <sys/time.h>
 
 using namespace std;
 
@@ -59,6 +62,9 @@ string Network::recievedtext(){
 class Boardgame{
 	int x;
 	int y;
+	int num = 0;
+
+	string list_water[3] = {"image\\Texture_Sea\\seawaves.png","image\\Texture_Sea\\seawaves1.png", "image\\Texture_Sea\\seawaves2.png"};
 
 	string type;
 	string tile;
@@ -67,6 +73,7 @@ class Boardgame{
 	sf::Sprite img2;
 	void Texture_Img();
 	void Sprite_Img();
+	int GetTimes();
 
 	public :
 		Boardgame(int,int,string);
@@ -78,14 +85,18 @@ Boardgame::Boardgame(int a, int b, string c){
 	x = a; y = b; type = c;
 }
 
+int Boardgame::GetTimes(){
+	const auto now = std::chrono::system_clock::now();
+	const auto nowMs = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()) % 1000;
+	stringstream nowSs;
+	nowSs << std::setfill('0') << std::setw(3) << nowMs.count();
+  	return stoi(nowSs.str());
+}
+
 void Boardgame::Texture_Img(){
 	string ref;
 	if(type == "water"){
-		int a = rand()%100;
-		if(a <= 96) ref = "image\\Texture_Sea\\seawaves4.png";
-		else if(a <= 97) ref = "image\\Texture_Sea\\seawaves1.png";
-		else if(a <= 98) ref = "image\\Texture_Sea\\seawaves2.png";
-		else ref =  "image\\Texture_Sea\\seawaves.png";
+		ref = list_water[num];
 	}
 	else if(type == "forest"){
 		ref = "image\\Texture_forest\\Forest.png";
@@ -113,7 +124,11 @@ void Boardgame::Sprite_Img(){
 }
 
 void Boardgame::Draw(sf::RenderWindow &window){
+	if(GetTimes() == 000) num++;
 	Texture_Img();
 	Sprite_Img();
 	window.draw(img2);
 }
+
+//--------------------------------------------------------------------------------------------------------------------//
+
