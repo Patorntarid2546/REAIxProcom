@@ -62,6 +62,7 @@ string Network::recievedtext(){
 class Boardgame{
 	int x;
 	int y;
+	int num = 0;
 
 	string list_water[3] = {"image\\Texture_Sea\\seawaves.png","image\\Texture_Sea\\seawaves1.png", "image\\Texture_Sea\\seawaves2.png"};
 
@@ -72,6 +73,7 @@ class Boardgame{
 	sf::Sprite img2;
 	void Texture_Img();
 	void Sprite_Img();
+	int GetTimes();
 
 	public :
 		Boardgame(int,int,string);
@@ -83,14 +85,18 @@ Boardgame::Boardgame(int a, int b, string c){
 	x = a; y = b; type = c;
 }
 
+int Boardgame::GetTimes(){
+	const auto now = std::chrono::system_clock::now();
+	const auto nowMs = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()) % 1000;
+	stringstream nowSs;
+	nowSs << std::setfill('0') << std::setw(3) << nowMs.count();
+  	return stoi(nowSs.str());
+}
+
 void Boardgame::Texture_Img(){
 	string ref;
 	if(type == "water"){
-		int a = rand()%100;
-		if(a <= 96) ref = "image\\Texture_Sea\\seawaves4.png";
-		else if(a <= 97) ref = "image\\Texture_Sea\\seawaves1.png";
-		else if(a <= 98) ref = "image\\Texture_Sea\\seawaves2.png";
-		else ref =  "image\\Texture_Sea\\seawaves.png";
+		ref = list_water[num];
 	}
 	else if(type == "forest"){
 		ref = "image\\Texture_forest\\Forest.png";
@@ -118,6 +124,7 @@ void Boardgame::Sprite_Img(){
 }
 
 void Boardgame::Draw(sf::RenderWindow &window){
+	if(GetTimes() == 000) num++;
 	Texture_Img();
 	Sprite_Img();
 	window.draw(img2);
@@ -128,7 +135,7 @@ void Boardgame::Draw(sf::RenderWindow &window){
 class Startgame{
 	sf::Texture img;
 	sf::Sprite img2;
-	string pic[3] = {"image\\Startgame\\startgame2.jpg","image\\Startgame\\startgame1.jpg","image\\Startgame\\startgame3.jpg"};
+	string pic[4] = {"image\\Startgame\\startgame4.jpg","image\\Startgame\\startgame3.jpg","image\\Startgame\\startgame2.jpg", "image\\Startgame\\startgame1.jpg"};
 	public :
 		int GetTimes();
 		void start();
@@ -145,27 +152,18 @@ int Startgame::GetTimes(){
 void Startgame::start(){
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive forest from atlantis", sf::Style::Fullscreen);
 
-	string ref = "image\\Startgame\\startgame1.jpg";
-
-	img.loadFromFile(ref);
-	img2.setTexture(img);
-	img2.setPosition(0,0);
-
-	int times1;
-	int num = 2;
+	int num = 3;
 
 	while (window.isOpen())
 	{
-		times1 = GetTimes();
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
-		cout << GetTimes() << endl;
 		window.clear();
-		if((times1%333) == 0){
+		if((GetTimes()%333) == 0){
 			img.loadFromFile(pic[num]);
 			img2.setTexture(img);
 			img2.setPosition(0,0);
@@ -180,4 +178,3 @@ void Startgame::start(){
 }
 
 //--------------------------------------------------------------------------------------------------------------------//
-
