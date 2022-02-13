@@ -17,6 +17,9 @@
 #include "north.h"
 #include "poom.h"
 
+// import class สำหรับหน้าเริ่มเกม
+#include "StartGame.h"
+
 int main()
 {
 	srand(time(0));
