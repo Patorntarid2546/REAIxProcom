@@ -13,12 +13,13 @@
 
 // import class ของสมาชิกแต่ละคน
 #include "meepooh.h"
-#include "non.h"
 #include "north.h"
-#include "poom.h"
 
 // import class สำหรับหน้าเริ่มเกม
-#include "StartGame.h"
+#include "Startgame.h"
+#include "Network.h"
+#include "Boardgame.h"
+#include "islandrandom.h"
 
 int main()
 {
