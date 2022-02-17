@@ -13,6 +13,8 @@
 #include <chrono>
 #include <sys/time.h>
 
+using namespace std;
+
 class Startgame{
 	sf::Texture img;
 	sf::Sprite img2;

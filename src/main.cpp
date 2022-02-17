@@ -11,10 +11,6 @@
 #include <vector>
 #include <windows.h>
 
-// import class ของสมาชิกแต่ละคน
-#include "meepooh.h"
-#include "north.h"
-
 // import class สำหรับหน้าเริ่มเกม
 #include "Startgame.h"
 #include "Network.h"
