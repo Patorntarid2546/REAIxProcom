@@ -30,7 +30,7 @@ int main()
 	// a.start();
 
 	// กำหนดขนาด window ความละเอียด 1920*1080 แบบเต็มจอ
-	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive forest from atlantis");
+	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive forest from atlantis", sf::Style::Fullscreen);
 
 	int block_h = 96, block_w = 84, set_h = 0, set_w = 650;
 
