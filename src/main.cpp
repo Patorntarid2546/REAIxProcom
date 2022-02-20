@@ -93,37 +93,47 @@ int main()
 
 	vector<int> secc = {0,7,15,24,34,45};
 	nub = -6;
-	for (int j = 5; j >= 3; j--){
+	for (int j = 5; j >= 4; j--){
 		for (int i = 1; i < j; i++){
-			board.push_back(Boardgame(((board.at(secc.at(2*(5-j)))).getpos()).at(0) - 84*i, ((board.at(secc.at(2*(5-j)))).getpos()).at(1), "forest", nub, -2*(5-j)-i));
-			board.push_back(Boardgame(((board.at(secc.at(2*(5-j)+1))).getpos()).at(0) - 84*i, ((board.at(secc.at(2*(5-j)+1))).getpos()).at(1), "forest", nub+1, -2*(5-j)-1-i));
+			board.push_back(Boardgame(((board.at(secc.at(2*(5-j)))).getpos()).at(0) - 84*i,
+				((board.at(secc.at(2*(5-j)))).getpos()).at(1), "forest", nub, ((board.at(secc.at(2*(5-j)))).getqrs()).at(0)-i));
+			board.push_back(Boardgame(((board.at(secc.at(2*(5-j)+1))).getpos()).at(0) - 84*i,
+				((board.at(secc.at(2*(5-j)+1))).getpos()).at(1), "forest", nub+1, ((board.at(secc.at(2*(5-j)+1))).getqrs()).at(0)-i));
 		}
 		nub+=2;
 	}
 	secc = {120,112,103,93,82,70};
 	nub = 6;
-	for (int j = 5; j >= 3; j--){
+	for (int j = 5; j >= 4; j--){
 		for (int i = 1; i < j; i++){
-			board.push_back(Boardgame(((board.at(secc.at(2*(5-j)))).getpos()).at(0) - 84*i, ((board.at(secc.at(2*(5-j)))).getpos()).at(1), "forest", nub, ((board.at(secc.at(2*(5-j)))).getqrs()).at(0)-i));
-			board.push_back(Boardgame(((board.at(secc.at(2*(5-j)+1))).getpos()).at(0) - 84*i, ((board.at(secc.at(2*(5-j)+1))).getpos()).at(1), "forest", nub-1,((board.at(secc.at(2*(5-j)+1))).getqrs()).at(0)-i));
+			board.push_back(Boardgame(((board.at(secc.at(2*(5-j)))).getpos()).at(0) - 84*i,
+				((board.at(secc.at(2*(5-j)))).getpos()).at(1), "forest", nub, ((board.at(secc.at(2*(5-j)))).getqrs()).at(0)-i));
+			board.push_back(Boardgame(((board.at(secc.at(2*(5-j)+1))).getpos()).at(0) - 84*i,
+				((board.at(secc.at(2*(5-j)+1))).getpos()).at(1), "forest", nub-1, ((board.at(secc.at(2*(5-j)+1))).getqrs()).at(0)-i));
 		}
 		nub-=2;
 	}
 	secc = {6,14,23,33,44,56};
 	nub = -6;
-	for (int j = 5; j >= 3; j--){
+	for (int j = 5; j >= 4; j--){
 		for (int i = 1; i < j; i++){
-			board.push_back(Boardgame(((board.at(secc.at(2*(5-j)))).getpos()).at(0) + 84*i, ((board.at(secc.at(2*(5-j)))).getpos()).at(1), "forest", nub++, -2*(5-j)-i));
-			board.push_back(Boardgame(((board.at(secc.at(2*(5-j)+1))).getpos()).at(0) + 84*i, ((board.at(secc.at(2*(5-j)+1))).getpos()).at(1), "forest", nub++, -2*(5-j)-1-i));
+			board.push_back(Boardgame(((board.at(secc.at(2*(5-j)))).getpos()).at(0) + 84*i,
+				((board.at(secc.at(2*(5-j)))).getpos()).at(1), "forest", nub, ((board.at(secc.at(2*(5-j)))).getqrs()).at(0)+i));
+			board.push_back(Boardgame(((board.at(secc.at(2*(5-j)+1))).getpos()).at(0) + 84*i,
+				((board.at(secc.at(2*(5-j)+1))).getpos()).at(1), "forest", nub+1, ((board.at(secc.at(2*(5-j)+1))).getqrs()).at(0)+i));
 		}
+		nub+=2;
 	}
 	secc = {126,119,111,102,92,81,70};
-	nub = -6;
-	for (int j = 5; j >= 3; j--){
+	nub = 6;
+	for (int j = 5; j >= 4; j--){
 		for (int i = 1; i < j; i++){
-			board.push_back(Boardgame(((board.at(secc.at(2*(5-j)))).getpos()).at(0) + 84*i, ((board.at(secc.at(2*(5-j)))).getpos()).at(1), "forest", nub++, -2*(5-j)-i));
-			board.push_back(Boardgame(((board.at(secc.at(2*(5-j)+1))).getpos()).at(0) + 84*i, ((board.at(secc.at(2*(5-j)+1))).getpos()).at(1), "forest", nub++, -2*(5-j)-1-i));
+			board.push_back(Boardgame(((board.at(secc.at(2*(5-j)))).getpos()).at(0) + 84*i,
+			((board.at(secc.at(2*(5-j)))).getpos()).at(1), "forest", nub, ((board.at(secc.at(2*(5-j)))).getqrs()).at(0)+i));
+			board.push_back(Boardgame(((board.at(secc.at(2*(5-j)+1))).getpos()).at(0) + 84*i,
+			((board.at(secc.at(2*(5-j)+1))).getpos()).at(1), "forest", nub-1, ((board.at(secc.at(2*(5-j)+1))).getqrs()).at(0)+i));
 		}
+		nub-=2;
 	}
 
 
