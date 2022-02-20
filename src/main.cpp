@@ -10,32 +10,33 @@
 #include <string>
 #include <vector>
 #include <windows.h>
-#include <list>
-#include <algorithm>
 
 // import class สำหรับหน้าเริ่มเกม
 #include "Startgame.h"
 #include "Network.h"
 #include "Boardgame.h"
 #include "islandrandom.h"
+#include "player.h"
 
 int main()
 {
 	srand(time(0));
 
-	sf::Vector2f mousepos;
 
 	// หน้าต่างงเริ่มเกม
 	// Startgame a;
 	// a.start();
 
+	// char mode = 's';
+
 	// กำหนดขนาด window ความละเอียด 1920*1080 แบบเต็มจอ
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive forest from atlantis", sf::Style::Fullscreen);
 
+	// ขนาด block 6 เหลี่ยม
 	int block_h = 96, block_w = 84, set_h = 0, set_w = 650;
 
+	// วางบล็อคน้ำ 6 เหลี่ยม
 	vector<Boardgame> board;
-
 	int nub , nubx;
 	for(int i = 1; i <= 14; i+=2){
 		int y = set_h+(i*block_h*3/4);
@@ -79,6 +80,7 @@ int main()
 		}
 	}
 
+	// วางบล็อคเกาะ 6 เหลี่ยม
 	int z = board.size();
 	for (int i = 0; i < z; i++){
 		vector<int> a = (board.at(i)).getqrs();
@@ -86,11 +88,8 @@ int main()
 		if(dis <= 3 && dis > 0) (board.at(i)).ChangeType();
 	}
 
-	// for (int i = 1; i < 5; i++){
-	// 	board.push_back(Boardgame(((board.at(0)).getpos()).at(0) - 84*i, ((board.at(0)).getpos()).at(1), "forest", -6, 0-i));
-	// 	board.push_back(Boardgame(((board.at(7)).getpos()).at(0) - 84*i, ((board.at(7)).getpos()).at(1), "forest", -5, -1-i));
-	// }
 
+	// วางบล็อคป่า 6 เหลี่ยม
 	vector<int> secc = {0,7,15,24,34,45};
 	nub = -6;
 	for (int j = 5; j >= 4; j--){
@@ -136,8 +135,11 @@ int main()
 		nub-=2;
 	}
 
-	while (window.isOpen())
-	{
+	// bool start = true;
+	// vector<Player> Splayer;
+	// vector<Player> Cplayer;
+
+	while (window.isOpen()){
 
 		// ลูป Event
 		sf::Event event;
@@ -147,21 +149,15 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 
-			if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+			// if(start == true){
+			// 	for(int i = 0; i < 18; i++){
+			// 		if(mode == 's'){
 
-				sf::Vector2f mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+			// 		}
+			// 	}
+			// start = false;
+			// }
 
-				z = board.size();
-				for (int i = 0; i < z; i++){
-					sf::FloatRect bounds = ((board.at(i)).getsprite()).getGlobalBounds();
-    				if (bounds.contains(mouse))
-    				{
-        				vector<int> test = ((board.at(i)).getqrs());
-						cout << test.at(0) << " " << test.at(1) << " " << test.at(2) << endl;
-    				}
-				}
-
-			}
 		}
 
 		// เคลียร์เฟรมเดิม
