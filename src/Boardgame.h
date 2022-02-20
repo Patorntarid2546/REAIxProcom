@@ -18,7 +18,8 @@ using namespace std;
 class Boardgame{
 	double posx, posy;
 	double cenx = posx+42, ceny = posy+48;
-	double q, r, s;
+	int q, r, s;
+	int effect;
 	string tile = "", type;
 
 	sf::Texture img;
@@ -31,6 +32,10 @@ class Boardgame{
 		void Draw(sf::RenderWindow &window);
 
 		void ChangeType();
+		vector <int> getqrs();
+		vector <double> getpos();
+		vector <double> getcen();
+		sf::Sprite getsprite();
 };
 
 
