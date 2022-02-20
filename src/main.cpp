@@ -136,8 +136,6 @@ int main()
 		nub-=2;
 	}
 
-	cout << " ok";
-
 	while (window.isOpen())
 	{
 
