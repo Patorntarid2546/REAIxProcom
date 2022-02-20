@@ -76,10 +76,10 @@ int main()
 		}
 	}
 
-	vector<int> effect = {}
+	vector<int> effect = {};
 
 
-	while (window.isOpen())
+    while (window.isOpen())
 	{
 
 		// ลูป Event
