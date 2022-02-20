@@ -16,25 +16,21 @@
 using namespace std;
 
 class Boardgame{
-	int x;
-	int y;
-	int num = 0;
-
-	string list_water[3] = {"image\\Texture_Sea\\seawaves.png","image\\Texture_Sea\\seawaves1.png", "image\\Texture_Sea\\seawaves2.png"};
-
-	string type;
-	string tile;
+	double posx, posy;
+	double cenx = posx+42, ceny = posy+48;
+	double q, r, s;
+	string tile = "", type;
 
 	sf::Texture img;
 	sf::Sprite img2;
-	void Texture_Img();
-	void Sprite_Img();
-	int GetTimes();
 
-	public :
-		Boardgame(int,int,string);
-		void Draw(sf::RenderWindow &);
+	public:
+		Boardgame(double, double, string, int, int);
+		void Texture_Img();
+		void Sprite_Img();
+		void Draw(sf::RenderWindow &window);
 
+		void ChangeType();
 };
 
 
