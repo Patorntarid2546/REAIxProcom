@@ -33,6 +33,11 @@ int main()
 	Startgame a;
 	a.start(window);
 
+	char mode = 's';
+
+	Network network;
+	network.connect(mode,"");
+
 	// ขนาด block 6 เหลี่ยม
 	int block_h = 96, block_w = 84, set_h = -10, set_w = 600;
 
@@ -138,7 +143,6 @@ int main()
 
 	vector<Player> Splayer;
 	vector<Player> Cplayer;
-	char mode = 's';
 
 	vector<double> *sent = new vector<double>;
 
@@ -184,16 +188,50 @@ int main()
 				}
 			}
 		}
+		
+		delete sent;
+	}
+	else{
+		while (true){
+			nub = rand()%board.size();
+			if (((board.at(nub)).GetType() == "water") && ((board.at(nub)).haveall == 0)){
+				dolphin.push_back(Dolphin(((board.at(nub)).getcen()).at(0), ((board.at(nub)).getcen()).at(1)));
+				(board.at(nub)).havedol++;
+				sent->push_back(((board.at(nub)).getcen()).at(0));
+				sent->push_back(((board.at(nub)).getcen()).at(1));
+				break;
+			}
+		}
 
+		while (true){
+			nub = rand()%board.size();
+			if (((board.at(nub)).GetType() == "water") && ((board.at(nub)).haveall == 0)){
+				shark.push_back(Shark(((board.at(nub)).getcen()).at(0), ((board.at(nub)).getcen()).at(1)));
+				(board.at(nub)).haveshark++;
+				sent->push_back(((board.at(nub)).getcen()).at(0));
+				sent->push_back(((board.at(nub)).getcen()).at(1));
+				break;
+			}
+		}
+
+		for (int i = 0; i < 4; i++){
+			while (true){
+				nub = rand()%board.size();
+				if (((board.at(nub)).GetType() == "forest") && ((board.at(nub)).haveall == 0)){
+					serpent.push_back(Serpent(((board.at(nub)).getcen()).at(0), ((board.at(nub)).getcen()).at(1)));
+					(board.at(nub)).haveser++;
+					sent->push_back(((board.at(nub)).getcen()).at(0));
+					sent->push_back(((board.at(nub)).getcen()).at(1));
+					break;
+				}
+			}
+		}
 		delete sent;
 	}
 	// int once = 0;
 	// char mode = 's';
 	// vector<Player> Splayer;
 	// vector<Player> Cplayer;
-
-	// Network network;
-	// network.connect(mode,"");
 
 	while (window.isOpen()){
 
