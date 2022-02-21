@@ -77,3 +77,7 @@ vector<double> Boardgame::getcen(){
 sf::Sprite Boardgame::getsprite(){
 	return img2;
 }
+
+string Boardgame::GetType(){
+	return type;
+}

@@ -17,6 +17,9 @@
 #include "Boardgame.h"
 #include "islandrandom.h"
 #include "player.h"
+#include "Dolphin.h"
+#include "Shark.h"
+#include "Serpent.h"
 
 int main()
 {
@@ -138,8 +141,41 @@ int main()
 	char mode = 's';
 
 	for(int i = 0; i < 18; i++){
-		Splayer.push_back(Player(mode, ((board[168]).getpos()).at(0), ((board[69]).getpos()).at(1)));
+		Splayer.push_back(Player(mode, ((board[168]).getcen()).at(0)+48, ((board[69]).getcen()).at(1)));
 	}
+
+	vector<Dolphin> dolphin;
+	while (true){
+		nub = rand()%board.size();
+		if (((board.at(nub)).GetType() == "water") && ((board.at(nub)).haveall == 0)){
+			dolphin.push_back(Dolphin(((board.at(nub)).getcen()).at(0), ((board.at(nub)).getcen()).at(1)));
+			(board.at(nub)).havedol++;
+			break;
+		}
+	}
+
+	vector<Shark> shark;
+	while (true){
+		nub = rand()%board.size();
+		if (((board.at(nub)).GetType() == "water") && ((board.at(nub)).haveall == 0)){
+			shark.push_back(Shark(((board.at(nub)).getcen()).at(0), ((board.at(nub)).getcen()).at(1)));
+			(board.at(nub)).haveshark++;
+			break;
+		}
+	}
+
+	vector<Serpent> serpent;
+	for (int i = 0; i < 4; i++){
+		while (true){
+			nub = rand()%board.size();
+			if (((board.at(nub)).GetType() == "forest") && ((board.at(nub)).haveall == 0)){
+				serpent.push_back(Serpent(((board.at(nub)).getcen()).at(0), ((board.at(nub)).getcen()).at(1)));
+				(board.at(nub)).haveser++;
+				break;
+			}
+		}
+	}
+
 
 	// int once = 0;
 	// char mode = 's';
@@ -165,12 +201,19 @@ int main()
 		window.clear();
 
 		// พื้นที่
-		for (int i = 0; i < int(board.size()); i++)
-			board[i].Draw(window);
+		for (int i = 0; i < int(board.size()); i++) board[i].Draw(window);
 
 		// player
-		for (int i = 0; i < int(Splayer.size()); i++)
-			Splayer[i].Draw(window);
+		for (int i = 0; i < int(Splayer.size()); i++) Splayer[i].Draw(window);
+
+		// Dolphin
+		for (int i = 0; i < int(dolphin.size()); i++) dolphin[i].Draw(window);
+
+		// Shark
+		for (int i = 0; i < int(shark.size()); i++) shark[i].Draw(window);
+
+		// Serpent
+		for (int i = 0; i < int(serpent.size()); i++) serpent[i].Draw(window);
 
 		// แสดงเฟรมใหม่
 		window.display();

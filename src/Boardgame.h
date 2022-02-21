@@ -31,11 +31,14 @@ class Boardgame{
 		void Sprite_Img();
 		void Draw(sf::RenderWindow &window);
 
+		int havedol = 0, haveshark = 0, haveplayer = 0, haveser = 0, haveall = haveshark+haveplayer+haveshark;
+
 		void ChangeType();
 		vector <int> getqrs();
 		vector <double> getpos();
 		vector <double> getcen();
 		sf::Sprite getsprite();
+		string GetType();
 };
 
 
