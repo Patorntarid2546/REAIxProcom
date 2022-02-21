@@ -1,6 +1,6 @@
 #include "Network.h"
 
-void Network::connect(char mode, string ip_s){
+void Network::connect(char mode, string ip_s = ""){
 	if(mode == 's'){
 		listenner.listen(2000);
 		listenner.accept(socket);
@@ -29,3 +29,4 @@ string Network::recievedtext(){
 		return "Network::recievedtext() --> Error";
 	}
 }
+

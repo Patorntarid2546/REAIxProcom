@@ -1,7 +1,7 @@
 #include "Player.h"
 
-Player::Player(char m){
-	mode = m;
+Player::Player(char m, double a, double b){
+	mode = m; posx = a, posy = b;
 }
 
 void Player::Texture_Img(){

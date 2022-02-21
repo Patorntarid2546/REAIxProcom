@@ -18,11 +18,10 @@ using namespace std;
 class Network{
 	sf::TcpSocket socket;
 	sf::TcpListener listenner;
+	sf::IpAddress my_ip = sf::IpAddress::getLocalAddress();
 	public :
-		sf::IpAddress my_ip = sf::IpAddress::getLocalAddress();
-
 		void connect(char, string);
 		void senttext(string);
 		string recievedtext();
-		void showip();
+		string showip();
 };

@@ -23,10 +23,6 @@ int main()
 	srand(time(0));
 
 
-	// หน้าต่างงเริ่มเกม
-
-
-	// char mode = 's';
 
 	// กำหนดขนาด window ความละเอียด 1920*1080 แบบเต็มจอ
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive forest from atlantis", sf::Style::Fullscreen);
@@ -137,9 +133,21 @@ int main()
 		nub-=2;
 	}
 
-	// bool start = true;
+	vector<Player> Splayer;
+	vector<Player> Cplayer;
+	char mode = 's';
+
+	for(int i = 0; i < 18; i++){
+		Splayer.push_back(Player(mode, ((board[168]).getpos()).at(0), ((board[69]).getpos()).at(1)));
+	}
+
+	// int once = 0;
+	// char mode = 's';
 	// vector<Player> Splayer;
 	// vector<Player> Cplayer;
+
+	// Network network;
+	// network.connect(mode,"");
 
 	while (window.isOpen()){
 
@@ -151,23 +159,18 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 
-			// if(start == true){
-			// 	for(int i = 0; i < 18; i++){
-			// 		if(mode == 's'){
-
-			// 		}
-			// 	}
-			// start = false;
-			// }
-
 		}
 
 		// เคลียร์เฟรมเดิม
 		window.clear();
 
-		// พื้นหลังน้ำ
+		// พื้นที่
 		for (int i = 0; i < int(board.size()); i++)
 			board[i].Draw(window);
+
+		// player
+		for (int i = 0; i < int(Splayer.size()); i++)
+			Splayer[i].Draw(window);
 
 		// แสดงเฟรมใหม่
 		window.display();

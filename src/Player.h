@@ -27,7 +27,7 @@ class Player{
 		double posx, posy;
 		double cenx = posx+30, ceny = posy+35;
 
-		Player(char);
+		Player(char, double, double);
 		void Texture_Img();
 		void Sprite_Img();
 		void Draw(sf::RenderWindow &window);
