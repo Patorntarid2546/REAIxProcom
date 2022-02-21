@@ -28,7 +28,7 @@ int main()
 
 
 	// กำหนดขนาด window ความละเอียด 1920*1080 แบบเต็มจอ
-	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive forest from atlantis", sf::Style::Fullscreen);
+	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive forest from atlantis"); //, sf::Style::Fullscreen
 
 	Startgame a;
 	a.start(window);
@@ -140,43 +140,53 @@ int main()
 	vector<Player> Cplayer;
 	char mode = 's';
 
+	vector<double> *sent = new vector<double>;
+
 	for(int i = 0; i < 18; i++){
 		Splayer.push_back(Player(mode, ((board[168]).getcen()).at(0)+48, ((board[69]).getcen()).at(1)));
 	}
 
 	vector<Dolphin> dolphin;
-	while (true){
-		nub = rand()%board.size();
-		if (((board.at(nub)).GetType() == "water") && ((board.at(nub)).haveall == 0)){
-			dolphin.push_back(Dolphin(((board.at(nub)).getcen()).at(0), ((board.at(nub)).getcen()).at(1)));
-			(board.at(nub)).havedol++;
-			break;
-		}
-	}
-
 	vector<Shark> shark;
-	while (true){
-		nub = rand()%board.size();
-		if (((board.at(nub)).GetType() == "water") && ((board.at(nub)).haveall == 0)){
-			shark.push_back(Shark(((board.at(nub)).getcen()).at(0), ((board.at(nub)).getcen()).at(1)));
-			(board.at(nub)).haveshark++;
-			break;
-		}
-	}
-
 	vector<Serpent> serpent;
-	for (int i = 0; i < 4; i++){
+	if (mode == 's'){
 		while (true){
 			nub = rand()%board.size();
-			if (((board.at(nub)).GetType() == "forest") && ((board.at(nub)).haveall == 0)){
-				serpent.push_back(Serpent(((board.at(nub)).getcen()).at(0), ((board.at(nub)).getcen()).at(1)));
-				(board.at(nub)).haveser++;
+			if (((board.at(nub)).GetType() == "water") && ((board.at(nub)).haveall == 0)){
+				dolphin.push_back(Dolphin(((board.at(nub)).getcen()).at(0), ((board.at(nub)).getcen()).at(1)));
+				(board.at(nub)).havedol++;
+				sent->push_back(((board.at(nub)).getcen()).at(0));
+				sent->push_back(((board.at(nub)).getcen()).at(1));
 				break;
 			}
 		}
+
+		while (true){
+			nub = rand()%board.size();
+			if (((board.at(nub)).GetType() == "water") && ((board.at(nub)).haveall == 0)){
+				shark.push_back(Shark(((board.at(nub)).getcen()).at(0), ((board.at(nub)).getcen()).at(1)));
+				(board.at(nub)).haveshark++;
+				sent->push_back(((board.at(nub)).getcen()).at(0));
+				sent->push_back(((board.at(nub)).getcen()).at(1));
+				break;
+			}
+		}
+
+		for (int i = 0; i < 4; i++){
+			while (true){
+				nub = rand()%board.size();
+				if (((board.at(nub)).GetType() == "forest") && ((board.at(nub)).haveall == 0)){
+					serpent.push_back(Serpent(((board.at(nub)).getcen()).at(0), ((board.at(nub)).getcen()).at(1)));
+					(board.at(nub)).haveser++;
+					sent->push_back(((board.at(nub)).getcen()).at(0));
+					sent->push_back(((board.at(nub)).getcen()).at(1));
+					break;
+				}
+			}
+		}
+
+		delete sent;
 	}
-
-
 	// int once = 0;
 	// char mode = 's';
 	// vector<Player> Splayer;
@@ -194,7 +204,22 @@ int main()
 			// ถ้ามีการปิดหน้าต่างให้ปิดโปรแกรม
 			if (event.type == sf::Event::Closed)
 				window.close();
+			int z = board.size();
+			for(int i = 0; i < z; i++){
+				if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+					// transform the mouse position from window coordinates to world coordinates
+					sf::Vector2f mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
+					// retrieve the bounding box of the sprite
+					sf::FloatRect bounds = board.at(i).getsprite().getGlobalBounds();
+
+					// hit test
+					if (bounds.contains(mouse))
+					{
+						cout << i << endl;
+					}
+				}
+			}
 		}
 
 		// เคลียร์เฟรมเดิม
