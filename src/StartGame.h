@@ -21,7 +21,7 @@ class Startgame{
 	string pic[4] = {"image\\Startgame\\6.start game1.png","image\\Startgame\\6.start game2.png","image\\Startgame\\6.start game3.png", "image\\Startgame\\6.start game4.png"};
 	public :
 		int GetTimes();
-		void start();
+		void start(sf::RenderWindow &);
 };
 
 int Startgame::GetTimes(){
@@ -32,8 +32,7 @@ int Startgame::GetTimes(){
   	return stoi(nowSs.str());
 }
 
-void Startgame::start(){
-	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive forest from atlantis", sf::Style::Fullscreen);
+void Startgame::start(sf::RenderWindow &window){
 
 	sf::CircleShape c1;
 	c1.setRadius(95.f);
@@ -54,7 +53,7 @@ void Startgame::start(){
 		}
 		if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
             if(c1.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y))
-			window.close();
+			break;
 		}
 		window.clear();
 		if((GetTimes()%333) == 0){

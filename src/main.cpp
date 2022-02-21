@@ -24,16 +24,18 @@ int main()
 
 
 	// หน้าต่างงเริ่มเกม
-	// Startgame a;
-	// a.start();
+
 
 	// char mode = 's';
 
 	// กำหนดขนาด window ความละเอียด 1920*1080 แบบเต็มจอ
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive forest from atlantis", sf::Style::Fullscreen);
 
+	Startgame a;
+	a.start(window);
+
 	// ขนาด block 6 เหลี่ยม
-	int block_h = 96, block_w = 84, set_h = 0, set_w = 650;
+	int block_h = 96, block_w = 84, set_h = -10, set_w = 600;
 
 	// วางบล็อคน้ำ 6 เหลี่ยม
 	vector<Boardgame> board;
