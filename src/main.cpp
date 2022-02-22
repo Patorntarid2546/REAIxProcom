@@ -234,17 +234,60 @@ int main()
 		(board.at(111)).haveser++;
 	}
 
+	bool turn;
+	if(mode == 's') turn = true;
+	else turn = false;
 
-	// bool turn;
-	// if (mode == 's') turn = true;
-	// else{
-	// 	turn = false;
-	// 	network.disconnect();
-	// 	network.dis = true;
-	// }
+	for (int i = 0; i < 18 ; i++){
+		if(turn){
+			sf::Event event;
+			while (window.pollEvent(event)){
+				// ถ้ามีการปิดหน้าต่างให้ปิดโปรแกรม
+				if (event.type == sf::Event::Closed)
+					window.close();
+				if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+					int z = board.size();
+					for(int i = 0; i < z; i++){
+						if(board.at(i).getsprite().getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
+							cout << i << endl;
+							network.senttext("pass");
+							turn = false;
+						}
+					}
+				}
+			}
+			network.senttext("kkmmoi");
+			cout << "sent" << endl;
+		}
+		else{
+			if(network.recievedtext() == "pass") turn = true;
+		}
+		// เคลียร์เฟรมเดิม
+		window.clear();
 
+		window.draw(bg);
+
+		// พื้นที่
+		for (int i = 0; i < int(board.size()); i++) board[i].Draw(window);
+
+		// player
+		for (int i = 0; i < int(Splayer.size()); i++) Splayer[i].Draw(window);
+
+		// Dolphin
+		for (int i = 0; i < int(dolphin.size()); i++) dolphin[i].Draw(window);
+
+		// Shark
+		for (int i = 0; i < int(shark.size()); i++) shark[i].Draw(window);
+
+		// Serpent
+		for (int i = 0; i < int(serpent.size()); i++) serpent[i].Draw(window);
+
+		// แสดงเฟรมใหม่
+
+		window.display();
+	}
+	cout << "yaaa";
 	while (window.isOpen()){
-		// network.senttext("nan");
 
 		// ลูป Event
 		sf::Event event;
@@ -253,32 +296,6 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 
-			// if (turn){
-			// 	int z = board.size();
-			// 	for(int i = 0; i < z; i++){
-			// 		if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-			// 			// transform the mouse position from window coordinates to world coordinates
-			// 			sf::Vector2f mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-
-			// 			// retrieve the bounding box of the sprite
-			// 			sf::FloatRect bounds = board.at(i).getsprite().getGlobalBounds();
-
-			// 			// hit test
-			// 			if (bounds.contains(mouse))
-			// 			{
-			// 				cout << i << endl;
-			// 				turn = false;
-			// 				network.senttext("turn");
-			// 				// network.disconnect();
-			// 				// network.dis = true;
-			// 			}
-			// 		}
-			// 	}
-			// }
-			// else{
-			// 	network.connect(mode,"");
-			// 	if(network.recievedtext() == "turn") turn = true;
-			// }
 
 		}
 		// เคลียร์เฟรมเดิม
@@ -303,14 +320,7 @@ int main()
 
 		// แสดงเฟรมใหม่
 
-
-
 		window.display();
-
-		// if(network.dis){
-		// 	network.connect(mode,"");
-		// 	network.dis = false;
-		// }
 
 	}
 

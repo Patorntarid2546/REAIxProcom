@@ -34,7 +34,6 @@ string Network::recievedtext(){
         packet >> messageRec;
         return messageRec;
     }
-<<<<<<< HEAD
     cout << "error" <<endl;
 	return "error";
 }
@@ -50,8 +49,5 @@ double Network::recieveddouble(){
     }
     cout << "error" <<endl;
 	return 0;
-=======
-	return "error";
->>>>>>> d08a783ba03e55b56f23345be2f3c1d9b465d432
 }
 
