@@ -13,19 +13,20 @@
 #include <chrono>
 #include <sys/time.h>
 
+
+
 using namespace std;
 
 class Boardgame{
 	double posx, posy;
-	double cenx = posx+42, ceny = posy+48;
 	int q, r, s;
-	int effect;
 	string tile = "", type;
 
 	sf::Texture img;
 	sf::Sprite img2;
 
 	public:
+		string effect;
 		Boardgame(double, double, string, int, int);
 		void Texture_Img();
 		void Sprite_Img();
@@ -33,12 +34,15 @@ class Boardgame{
 
 		int havedol = 0, haveshark = 0, haveplayer = 0, haveser = 0, haveall = haveshark+haveplayer+haveshark;
 
-		void ChangeType();
+		void ChangeType(string);
 		vector <int> getqrs();
 		vector <double> getpos();
 		vector <double> getcen();
 		sf::Sprite getsprite();
 		string GetType();
+		string GetTile();
+		string GetEffect();
+		void ChangeEffect(string);
 };
 
 

@@ -38,22 +38,25 @@ void Boardgame::Draw(sf::RenderWindow &window){
 	window.draw(img2);
 }
 
-void Boardgame::ChangeType(){
+void Boardgame::ChangeType(string z = ""){
 	type = "island";
 	int a = rand()%3;
 	int b = rand()%(36);
-	if(b < 8) effect = 0;
-	else if (b < 16) effect = 1; // เพิ่มฉลาม
-	else if (b < 20) effect = 2; // เพิ่มโลมา
-	else if (b < 24) effect = 3; // ย้ายโลมา
-	else if (b < 28) effect = 4; // ย้ายฉลาม
-	else if (b < 34) effect = 5; // ว่างเปล่า
+	if(b < 8) effect = '0';
+	else if (b < 16) effect = '1'; // เพิ่มฉลาม
+	else if (b < 20) effect = '2'; // เพิ่มโลมา
+	else if (b < 24) effect = '3'; // ย้ายโลมา
+	else if (b < 28) effect = '4'; // ย้ายฉลาม
+	else if (b < 34) effect = '5'; // ว่างเปล่า
 	else effect = 6; // ภูเขาไฟระเบิด
-
-	if(a == 0) tile = "sand";
-	else if(a == 1) tile = "solid";
-	else tile = "mount";
-
+	if(z == ""){
+		if(a == 0) tile = "sand";
+		else if(a == 1) tile = "solid";
+		else tile = "mount";
+	}
+	else{
+		tile = z;
+	}
 }
 
 vector<int> Boardgame::getqrs(){
@@ -70,7 +73,7 @@ vector<double> Boardgame::getpos(){
 
 vector<double> Boardgame::getcen(){
 	vector<double> a;
-	a.push_back(cenx); a.push_back(ceny);
+	a.push_back(posx+42); a.push_back(posy+48);
 	return a;
 }
 
@@ -80,4 +83,16 @@ sf::Sprite Boardgame::getsprite(){
 
 string Boardgame::GetType(){
 	return type;
+}
+
+string Boardgame::GetTile(){
+	return tile;
+}
+
+string Boardgame::GetEffect(){
+	return effect;
+}
+
+void Boardgame::ChangeEffect(string a){
+	effect = a;
 }

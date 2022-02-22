@@ -1,32 +1,53 @@
 #include "Network.h"
 
 void Network::connect(char mode, string ip_s = ""){
-	if(mode == 's'){
-		listenner.listen(2000);
-		listenner.accept(socket);
-		cout << "Connect Success!!!" << endl;
-	}
-	else if(mode == 'c'){
-		socket.connect(ip_s, 2000);
-		cout << "Connect Success!!!" << endl;
-	}
+    if(mode == 's')
+    {
+        sf::TcpListener listener;
+        listener.listen(2000);
+
+        if(listener.accept(socket) != sf::Socket::Done)
+        {
+            cout << "Error!\n";
+        }
+    }
+    else if(mode == 'c')
+    {
+        if(socket.connect(ip_s, 2000) != sf::Socket::Done)
+        {
+            cout << "Error!\n";
+        }
+    }
 }
 
+
 void Network::senttext(string text){
-	socket.send(text.c_str(), text.length()+1);
+    packet.clear();
+    packet << text;
+    socket.send(packet);
 }
 
 string Network::recievedtext(){
-	string text;
-	char buffer[2000];
-	size_t recieved;
-	socket.receive(buffer, sizeof(buffer), recieved);
-	if(recieved > 0){
-		text = buffer;
-		return text;
-	}
-	else{
-		return "Network::recievedtext() --> Error";
-	}
+	string messageRec;
+    if(socket.receive(packet) == sf::Socket::Done)
+    {
+        packet >> messageRec;
+        return messageRec;
+    }
+    cout << "error" <<endl;
+	return "error";
+}
+
+
+
+double Network::recieveddouble(){
+	string messageRec;
+    if(socket.receive(packet) == sf::Socket::Done)
+    {
+        packet >> messageRec;
+        return stof(messageRec);
+    }
+    cout << "error" <<endl;
+	return 0;
 }
 

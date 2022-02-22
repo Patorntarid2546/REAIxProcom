@@ -19,9 +19,13 @@ class Network{
 	sf::TcpSocket socket;
 	sf::TcpListener listenner;
 	sf::IpAddress my_ip = sf::IpAddress::getLocalAddress();
+	sf::Packet  packet;
 	public :
 		void connect(char, string);
+		void disconnect();
 		void senttext(string);
 		string recievedtext();
+		double recieveddouble();
 		string showip();
+		bool dis;
 };

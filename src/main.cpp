@@ -28,15 +28,21 @@ int main()
 
 
 	// กำหนดขนาด window ความละเอียด 1920*1080 แบบเต็มจอ
-	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive forest from atlantis"); //, sf::Style::Fullscreen
+	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive forest from atlantis"); //,
 
-	Startgame a;
-	a.start(window);
+	// Startgame a;
+	// a.start(window);
 
 	char mode = 's';
 
 	Network network;
 	network.connect(mode,"");
+
+	sf::Texture bg1;
+	sf::Sprite bg;
+	bg1.loadFromFile("image\\Startgame\\startgame4.jpg");
+	bg.setTexture(bg1);
+	bg.setPosition(0,0);
 
 	// ขนาด block 6 เหลี่ยม
 	int block_h = 96, block_w = 84, set_h = -10, set_w = 600;
@@ -87,13 +93,28 @@ int main()
 	}
 
 	// วางบล็อคเกาะ 6 เหลี่ยม
-	int z = board.size();
-	for (int i = 0; i < z; i++){
-		vector<int> a = (board.at(i)).getqrs();
-		double dis = (abs(a.at(0)) + abs(a.at(1)) + abs(a.at(2)))/2;
-		if(dis <= 3 && dis > 0) (board.at(i)).ChangeType();
+	if (mode == 's'){
+		int z = board.size();
+		for (int i = 0; i < z; i++){
+			vector<int> a = (board.at(i)).getqrs();
+			double dis = (abs(a.at(0)) + abs(a.at(1)) + abs(a.at(2)))/2;
+			if(dis <= 3 && dis > 0){
+				(board.at(i)).ChangeType("");
+				network.senttext((board.at(i)).GetTile());
+			}
+		}
 	}
-
+	else{
+		int z = board.size();
+		for (int i = 0; i < z; i++){
+			vector<int> a = (board.at(i)).getqrs();
+			double dis = (abs(a.at(0)) + abs(a.at(1)) + abs(a.at(2)))/2;
+			if(dis <= 3 && dis > 0){
+				string a = network.recievedtext();
+				(board.at(i)).ChangeType(a);
+			}
+		}
+	}
 
 	// วางบล็อคป่า 6 เหลี่ยม
 	vector<int> secc = {0,7,15,24,34,45};
@@ -144,8 +165,6 @@ int main()
 	vector<Player> Splayer;
 	vector<Player> Cplayer;
 
-	vector<double> *sent = new vector<double>;
-
 	for(int i = 0; i < 18; i++){
 		Splayer.push_back(Player(mode, ((board[168]).getcen()).at(0)+48, ((board[69]).getcen()).at(1)));
 	}
@@ -159,8 +178,8 @@ int main()
 			if (((board.at(nub)).GetType() == "water") && ((board.at(nub)).haveall == 0)){
 				dolphin.push_back(Dolphin(((board.at(nub)).getcen()).at(0), ((board.at(nub)).getcen()).at(1)));
 				(board.at(nub)).havedol++;
-				sent->push_back(((board.at(nub)).getcen()).at(0));
-				sent->push_back(((board.at(nub)).getcen()).at(1));
+				string str = to_string(nub);
+				network.senttext(str);
 				break;
 			}
 		}
@@ -170,98 +189,102 @@ int main()
 			if (((board.at(nub)).GetType() == "water") && ((board.at(nub)).haveall == 0)){
 				shark.push_back(Shark(((board.at(nub)).getcen()).at(0), ((board.at(nub)).getcen()).at(1)));
 				(board.at(nub)).haveshark++;
-				sent->push_back(((board.at(nub)).getcen()).at(0));
-				sent->push_back(((board.at(nub)).getcen()).at(1));
+				string str = to_string(nub);
+				network.senttext(str);
 				break;
 			}
 		}
 
-		for (int i = 0; i < 4; i++){
-			while (true){
-				nub = rand()%board.size();
-				if (((board.at(nub)).GetType() == "forest") && ((board.at(nub)).haveall == 0)){
-					serpent.push_back(Serpent(((board.at(nub)).getcen()).at(0), ((board.at(nub)).getcen()).at(1)));
-					(board.at(nub)).haveser++;
-					sent->push_back(((board.at(nub)).getcen()).at(0));
-					sent->push_back(((board.at(nub)).getcen()).at(1));
-					break;
-				}
-			}
-		}
-		
-		delete sent;
+		serpent.push_back(Serpent(((board.at(15)).getcen()).at(0), ((board.at(15)).getcen()).at(1)));
+		(board.at(15)).haveser++;
+		serpent.push_back(Serpent(((board.at(103)).getcen()).at(0), ((board.at(103)).getcen()).at(1)));
+		(board.at(103)).haveser++;
+		serpent.push_back(Serpent(((board.at(23)).getcen()).at(0), ((board.at(23)).getcen()).at(1)));
+		(board.at(23)).haveser++;
+		serpent.push_back(Serpent(((board.at(111)).getcen()).at(0), ((board.at(111)).getcen()).at(1)));
+		(board.at(111)).haveser++;
 	}
 	else{
+
 		while (true){
-			nub = rand()%board.size();
+			nub = network.recieveddouble();
 			if (((board.at(nub)).GetType() == "water") && ((board.at(nub)).haveall == 0)){
 				dolphin.push_back(Dolphin(((board.at(nub)).getcen()).at(0), ((board.at(nub)).getcen()).at(1)));
 				(board.at(nub)).havedol++;
-				sent->push_back(((board.at(nub)).getcen()).at(0));
-				sent->push_back(((board.at(nub)).getcen()).at(1));
 				break;
 			}
 		}
 
 		while (true){
-			nub = rand()%board.size();
+			nub = network.recieveddouble();
 			if (((board.at(nub)).GetType() == "water") && ((board.at(nub)).haveall == 0)){
 				shark.push_back(Shark(((board.at(nub)).getcen()).at(0), ((board.at(nub)).getcen()).at(1)));
 				(board.at(nub)).haveshark++;
-				sent->push_back(((board.at(nub)).getcen()).at(0));
-				sent->push_back(((board.at(nub)).getcen()).at(1));
 				break;
 			}
 		}
 
-		for (int i = 0; i < 4; i++){
-			while (true){
-				nub = rand()%board.size();
-				if (((board.at(nub)).GetType() == "forest") && ((board.at(nub)).haveall == 0)){
-					serpent.push_back(Serpent(((board.at(nub)).getcen()).at(0), ((board.at(nub)).getcen()).at(1)));
-					(board.at(nub)).haveser++;
-					sent->push_back(((board.at(nub)).getcen()).at(0));
-					sent->push_back(((board.at(nub)).getcen()).at(1));
-					break;
-				}
-			}
-		}
-		delete sent;
+		serpent.push_back(Serpent(((board.at(15)).getcen()).at(0), ((board.at(15)).getcen()).at(1)));
+		(board.at(15)).haveser++;
+		serpent.push_back(Serpent(((board.at(103)).getcen()).at(0), ((board.at(103)).getcen()).at(1)));
+		(board.at(103)).haveser++;
+		serpent.push_back(Serpent(((board.at(23)).getcen()).at(0), ((board.at(23)).getcen()).at(1)));
+		(board.at(23)).haveser++;
+		serpent.push_back(Serpent(((board.at(111)).getcen()).at(0), ((board.at(111)).getcen()).at(1)));
+		(board.at(111)).haveser++;
 	}
-	// int once = 0;
-	// char mode = 's';
-	// vector<Player> Splayer;
-	// vector<Player> Cplayer;
+
+
+	// bool turn;
+	// if (mode == 's') turn = true;
+	// else{
+	// 	turn = false;
+	// 	network.disconnect();
+	// 	network.dis = true;
+	// }
 
 	while (window.isOpen()){
+		// network.senttext("nan");
 
 		// ลูป Event
 		sf::Event event;
-		while (window.pollEvent(event))
-		{
+		while (window.pollEvent(event)){
 			// ถ้ามีการปิดหน้าต่างให้ปิดโปรแกรม
 			if (event.type == sf::Event::Closed)
 				window.close();
-			int z = board.size();
-			for(int i = 0; i < z; i++){
-				if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-					// transform the mouse position from window coordinates to world coordinates
-					sf::Vector2f mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
-					// retrieve the bounding box of the sprite
-					sf::FloatRect bounds = board.at(i).getsprite().getGlobalBounds();
+			// if (turn){
+			// 	int z = board.size();
+			// 	for(int i = 0; i < z; i++){
+			// 		if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+			// 			// transform the mouse position from window coordinates to world coordinates
+			// 			sf::Vector2f mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
-					// hit test
-					if (bounds.contains(mouse))
-					{
-						cout << i << endl;
-					}
-				}
-			}
+			// 			// retrieve the bounding box of the sprite
+			// 			sf::FloatRect bounds = board.at(i).getsprite().getGlobalBounds();
+
+			// 			// hit test
+			// 			if (bounds.contains(mouse))
+			// 			{
+			// 				cout << i << endl;
+			// 				turn = false;
+			// 				network.senttext("turn");
+			// 				// network.disconnect();
+			// 				// network.dis = true;
+			// 			}
+			// 		}
+			// 	}
+			// }
+			// else{
+			// 	network.connect(mode,"");
+			// 	if(network.recievedtext() == "turn") turn = true;
+			// }
+
 		}
-
 		// เคลียร์เฟรมเดิม
 		window.clear();
+
+		window.draw(bg);
 
 		// พื้นที่
 		for (int i = 0; i < int(board.size()); i++) board[i].Draw(window);
@@ -279,7 +302,16 @@ int main()
 		for (int i = 0; i < int(serpent.size()); i++) serpent[i].Draw(window);
 
 		// แสดงเฟรมใหม่
+
+
+
 		window.display();
+
+		// if(network.dis){
+		// 	network.connect(mode,"");
+		// 	network.dis = false;
+		// }
+
 	}
 
 	return 0;
