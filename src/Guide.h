@@ -15,17 +15,16 @@
 
 using namespace std;
 
-class Startgame{
-	sf::Texture img;
+class Guide{
+	sf::Texture img1;
 	sf::Sprite img2;
-	string pic[5] = {"image\\Guide\\9.guide1.png","image\\Guide\\9.guide2.png","image\\Guide\\9.guide3.png",
+	string poc[5] = {"image\\Guide\\9.guide1.png","image\\Guide\\9.guide2.png","image\\Guide\\9.guide3.png",
 	"image\\Guide\\9.guide4.png","image\\Guide\\9.guide5.png"};
 	public :
-		int GetTimes();
-		void start(sf::RenderWindow &);
+		void startG(sf::RenderWindow &);
 };
 
-void Startgame::start(sf::RenderWindow &window){
+void Guide::startG(sf::RenderWindow &window){
 
 	sf::CircleShape g1;
 	g1.setRadius(30.f);
@@ -74,8 +73,8 @@ void Startgame::start(sf::RenderWindow &window){
 					num++;
          		}
 			}
-		    img.loadFromFile(pic[num]);
-		    img2.setTexture(img);
+		    img.loadFromFile(poc[num]);
+		    img2.setTexture(img1);
 		    img2.setPosition(225,160);
 
 		}
