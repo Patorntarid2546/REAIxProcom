@@ -56,10 +56,10 @@ void Startgame::start(sf::RenderWindow &window){
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
-			//cliend
+			//click
 			if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 				if(g1.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
-                    ;
+                    // exit
          		}
             	if(g2.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
 				   if(num <= 0){
