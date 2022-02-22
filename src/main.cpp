@@ -286,7 +286,7 @@ int main()
 
 		window.display();
 	}
-	cout << "yaaa";
+	cout << "yaaaa";
 	while (window.isOpen()){
 
 		// ลูป Event
