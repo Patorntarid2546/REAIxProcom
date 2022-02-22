@@ -33,7 +33,8 @@
 		"chrono": "cpp",
 		"functional": "cpp",
 		"array": "cpp",
-		"string_view": "cpp"
+		"string_view": "cpp",
+		"sstream": "cpp"
 	},
 	"terminal.integrated.automationShell.windows": "C:/Program Files/Git/bin/bash.exe",
 	"terminal.integrated.env.windows": {

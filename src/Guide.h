@@ -21,10 +21,10 @@ class Guide{
 	string poc[5] = {"image\\Guide\\9.guide1.png","image\\Guide\\9.guide2.png","image\\Guide\\9.guide3.png",
 	"image\\Guide\\9.guide4.png","image\\Guide\\9.guide5.png"};
 	public :
-		void startG(sf::RenderWindow &);
+		void startG(sf::RenderWindow &, bool);
 };
 
-void Guide::startG(sf::RenderWindow &window){
+void Guide::startG(sf::RenderWindow &window, bool g){
 
 	sf::CircleShape g1;
 	g1.setRadius(30.f);
@@ -49,7 +49,7 @@ void Guide::startG(sf::RenderWindow &window){
 
 	int num = 0;
 
-	while (window.isOpen()){
+	while (g){
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -87,6 +87,6 @@ void Guide::startG(sf::RenderWindow &window){
 		window.draw(img2);
 
 
-		window.display();
+
 	}
 }
