@@ -18,8 +18,13 @@ using namespace std;
 class Startgame{
 	sf::Texture img;
 	sf::Sprite img2;
+	sf::Texture img3;
+	sf::Sprite img4;
+
 	string pic[4] = {"image\\startgame2\\T7.1second frame.png","image\\startgame2\\T7.1second frame1.png","image\\startgame2\\T7.1second frame2.png",
 	"image\\startgame2\\T7.1second frame3.png"};
+	string poc[5] = {"image\\Guide\\9.guide1.png","image\\Guide\\9.guide2.png","image\\Guide\\9.guide3.png",
+	"image\\Guide\\9.guide4.png","image\\Guide\\9.guide5.png"};
 	public :
 		int GetTimes();
 		void start(sf::RenderWindow &);
@@ -63,10 +68,34 @@ void Startgame::start(sf::RenderWindow &window){
 	sf::Sprite sign11;
 	sign11.setPosition(0,0);
 
+	sf::CircleShape g1;
+	g1.setRadius(30.f);
+	g1.setFillColor(sf::Color::Transparent);
+	g1.setOutlineColor(sf::Color::White);
+	g1.setOutlineThickness(10.f);
+	g1.setPosition(1520.f,175.f);
+
+	sf::RectangleShape g2;
+	g2.setSize(sf::Vector2f(240,95));
+	g2.setFillColor(sf::Color::Transparent);
+	g2.setOutlineColor(sf::Color::White);
+	g2.setOutlineThickness(10.f);
+	g2.setPosition(380.f,730.f);
+
+	sf::RectangleShape g3;
+	g3.setSize(sf::Vector2f(240,95));
+	g3.setFillColor(sf::Color::Transparent);
+	g3.setOutlineColor(sf::Color::White);
+	g3.setOutlineThickness(10.f);
+	g3.setPosition(1322.f,730.f);
+
 
 	bool once = true;
 	int num = 3;
 	sf::Sprite s1,s2;
+
+	bool g = false;
+	int ggg = 0;
 
 	while (window.isOpen()){
 		sf::Event event;
@@ -78,20 +107,46 @@ void Startgame::start(sf::RenderWindow &window){
 			if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
             	if(r1.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
 					sign11.setTexture(sign1);
-         		}
-			}
-			//cliend
-			if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+					g = false;
+				}
+				//cliend
             	if(r2.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
+					g = false;
 					sign11.setTexture(sign2);
          		}
-			}
-			//guide3ed(sf::Mouse::Left)){
-            if(r3.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y))
-				break;
-		}
 
+				//guide3ed(sf::Mouse::Left)){
+            	if(r3.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
+					cout << g << endl;
+					g = true;
+					img3.loadFromFile(poc[ggg]);
+		    		img4.setTexture(img3);
+		    		img4.setPosition(225,160);
+					break;
+				}
+
+				if (g){
+					if(g1.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
+                    	g = false;
+    				}
+            		if(g2.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
+						ggg--;
+				   		if(ggg < 0){
+					   		ggg = 0;
+				    	}
+					}
+				 	if(g3.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
+						ggg++;
+						if(ggg > 4){
+					   		ggg = 4;
+				    	}
+         			}
+					img3.loadFromFile(poc[ggg]);
+				}
+			}
+		}
 		window.clear();
+
 
 
 		window.draw(r1);
@@ -115,7 +170,13 @@ void Startgame::start(sf::RenderWindow &window){
 		window.draw(img2);
 		window.draw(sign11);
 
+		if (g){
+			window.draw(g1);
+			window.draw(g2);
+			window.draw(g3);
 
+			window.draw(img4);
+		}
 		window.display();
 	}
 }
