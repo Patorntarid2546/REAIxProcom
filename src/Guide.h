@@ -73,7 +73,7 @@ void Guide::startG(sf::RenderWindow &window){
 					num++;
          		}
 			}
-		    img.loadFromFile(poc[num]);
+		    img1.loadFromFile(poc[num]);
 		    img2.setTexture(img1);
 		    img2.setPosition(225,160);
 
