@@ -12,6 +12,7 @@
 #include <ctime>
 #include <chrono>
 #include <sys/time.h>
+#include <cmath>
 
 
 
@@ -44,6 +45,7 @@ class Boardgame{
 		string GetTile();
 		string GetEffect();
 		void ChangeEffect(string);
+		int operator+(const Boardgame &);
 };
 
 

@@ -96,3 +96,10 @@ string Boardgame::GetEffect(){
 void Boardgame::ChangeEffect(string a){
 	effect = a;
 }
+
+int Boardgame::operator+(const Boardgame &B){
+	int qq = abs(q - B.q);
+	int rr = abs(r - B.r);
+	int ss = abs(s - B.s);
+	return (qq+rr+ss)/2;
+}

@@ -52,3 +52,11 @@ double Network::recieveddouble(){
 	return 0;
 }
 
+void Network::sentpos(int i, double x, double y){
+    x+=30; y+=35;
+    string xx = to_string(x), yy = to_string(y), ii = to_string(i);
+    senttext("pos");
+    senttext(ii);
+    senttext(xx);
+    senttext(yy);
+}

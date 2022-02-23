@@ -276,11 +276,11 @@ int main()
 
 
 	while (window.isOpen()){
+		sf::Event event;
 		if(bk){
 			break;
 		}
 		if(turn){
-			sf::Event event;
 			while (window.pollEvent(event)){
 				//ปุ่ม guide and exit
 				/*if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
@@ -311,10 +311,7 @@ int main()
 									if(board.at(i).GetType() == "island"){
 										isclick = false;
 										turn = false;
-										network.senttext("pos");
-										network.senttext(to_string(Pwhich));
-										network.senttext(to_string(Splayer.at(Pwhich).posx+30));
-										network.senttext(to_string(Splayer.at(Pwhich).posy+35));
+										network.sentpos(Pwhich, Splayer.at(Pwhich).posx, Splayer.at(Pwhich).posy);
 										network.senttext("pass");
 										board[i].haveplayer++;
 										board[i].index_player = Pwhich;
@@ -357,7 +354,7 @@ int main()
 						board[i].index_player = po;
 						Cplayer[po].index_board = i;
 						check++;
-						if(check == 3){
+						if(check == 2){
 							network.senttext("break");
 							bk = true;
 						}
@@ -399,18 +396,128 @@ int main()
 
 		window.display();
 	}
-	cout << "yaaaa";
+
+	if(mode == 's') turn = true;
+	else turn = false;
+	isclick = false;
+	Pwhich = 0;
+	int Bwhich;
+	// bool phase_one = false;
+	bool phase_two = true;
+	// bool phase_three = false;
+
+	cout << "Start" << endl;
+
+
 	while (window.isOpen()){
-
-		// ลูป Event
+		// cout << phase_three << endl;
 		sf::Event event;
-		while (window.pollEvent(event)){
-			// ถ้ามีการปิดหน้าต่างให้ปิดโปรแกรม
-			if (event.type == sf::Event::Closed)
-				window.close();
-
-
+		if(turn){
+			// ลูป Event
+			while (window.pollEvent(event)){
+				// ถ้ามีการปิดหน้าต่างให้ปิดโปรแกรม
+				if (event.type == sf::Event::Closed)
+					window.close();
+				if(phase_two){
+					if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+						if(isclick == false){
+							for(int i = 0; i < int(Splayer.size()); i++){
+								if(Splayer.at(i).getsprite().getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
+									for(int j = 0; j < int(board.size()); j++){
+										if((board.at(j).getsprite().getGlobalBounds()).contains(Splayer.at(i).getcen().at(0), Splayer.at(i).getcen().at(1))){
+											Bwhich = j;
+											break;
+										}
+									}
+									isclick = true;
+									Pwhich = i;
+									board[i].haveplayer--;
+									board[i].index_player = 999;
+									break;
+								}
+							}
+						}
+						else{
+							for(int i = 0; i < int(board.size()); i++){
+								if((board.at(i).getsprite().getGlobalBounds()).contains(Splayer.at(Pwhich).getcen().at(0), Splayer.at(Pwhich).getcen().at(1))){
+									if(board.at(i).haveplayer == 0){
+										int distance = board[i] + board[Bwhich];
+										if(board[i].GetType() == "island"){
+											if(distance <= 3){
+												isclick = false;
+												phase_two = false;
+												// phase_three = true;
+												network.sentpos(Pwhich, Splayer.at(Pwhich).posx, Splayer.at(Pwhich).posy);
+												board[i].haveplayer++;
+												board[i].index_player = Pwhich;
+												Splayer[Pwhich].index_board = i;
+												network.senttext("pass");
+												turn = false;
+												break;
+											}
+										}
+										else{
+											if(distance <= 1){
+												isclick = false;
+												phase_two = false;
+												// phase_three = true;
+												network.sentpos(Pwhich, Splayer.at(Pwhich).posx, Splayer.at(Pwhich).posy);
+												board[i].haveplayer++;
+												board[i].index_player = Pwhich;
+												Splayer[Pwhich].index_board = i;
+												network.senttext("pass");
+												turn = false;
+												break;
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					if (event.type == sf::Event::MouseMoved){
+						if(isclick){
+							float x = event.mouseMove.x;
+							float y = event.mouseMove.y;
+							Splayer[Pwhich].Changepos(x,y);
+							// network.senttext("con");
+							// network.senttext(to_string(Pwhich));
+							// network.senttext(to_string(x));
+							// network.senttext(to_string(y));
+						}
+					}
+				}
+			}
 		}
+		else{
+			string text = network.recievedtext();
+			if(text == "pass"){
+				turn = true;
+				cout << "PPass" << endl;
+			}
+			else if(text == "pos"){
+				double po = stof(network.recievedtext());
+				double x = stof(network.recievedtext());
+				double y = stof(network.recievedtext());
+				Cplayer[po].Changepos(x,y);
+				Cplayer[po].Draw(window);
+				for(int i = 0; i < int(board.size()); i++){
+					if((board.at(i).getsprite().getGlobalBounds()).contains(Cplayer.at(po).getcen().at(0), Cplayer.at(po).getcen().at(1))){
+						cout << "ok0" << endl;
+						board[i].haveplayer++;
+						board[i].index_player = po;
+						Cplayer[po].index_board = i;
+					}
+				}
+			}
+			else if(text == "con"){
+				double po = stof(network.recievedtext());
+				double x = stof(network.recievedtext());
+				double y = stof(network.recievedtext());
+				Cplayer[po].Changepos(x,y);
+			}
+		}
+
 		// เคลียร์เฟรมเดิม
 		window.clear();
 

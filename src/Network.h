@@ -28,4 +28,6 @@ class Network{
 		double recieveddouble();
 		string showip();
 		bool dis;
+
+		void sentpos(int, double, double);
 };
