@@ -3,6 +3,7 @@
 void Network::connect(char mode, string ip_s = ""){
     if(mode == 's')
     {
+        cout << my_ip << endl;
         sf::TcpListener listener;
         listener.listen(2000);
 

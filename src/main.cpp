@@ -276,7 +276,6 @@ int main()
 	// int keepplayer;
 
 	while (window.isOpen()){
-		if(int(Splayer.size()) + int(Cplayer.size()) == 36) break;
 		if(turn){
 			sf::Event event;
 			while (window.pollEvent(event)){
