@@ -30,8 +30,8 @@ int main()
 	// กำหนดขนาด window ความละเอียด 1920*1080 แบบเต็มจอ
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive forest from atlantis"); //,
 
-	// Startgame a;
-	// a.start(window);
+	//Startgame a;
+	//a.start(window);
 
 	char mode = 's';
 
@@ -40,7 +40,7 @@ int main()
 
 	sf::Texture bg1;
 	sf::Sprite bg;
-	bg1.loadFromFile("image\\Startgame\\startgame4.jpg");
+	bg1.loadFromFile("image\\Startgame\\6.ingame (1).jpg");
 	bg.setTexture(bg1);
 	bg.setPosition(0,0);
 
