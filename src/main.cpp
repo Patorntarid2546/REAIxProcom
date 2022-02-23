@@ -25,7 +25,8 @@ int main()
 {
 	srand(time(0));
 
-
+    string poc[5] = {"image\\Guide\\9.guide1.png","image\\Guide\\9.guide2.png","image\\Guide\\9.guide3.png",
+	"image\\Guide\\9.guide4.png","image\\Guide\\9.guide5.png"};
 
 	// กำหนดขนาด window ความละเอียด 1920*1080 แบบเต็มจอ
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive forest from atlantis"); //,
@@ -33,7 +34,7 @@ int main()
 	// Startgame a;
 	// a.start(window);
 
-	char mode = 's';
+	char mode = 'c';
 
 	Network network;
 	network.connect(mode,"");
@@ -241,8 +242,8 @@ int main()
 		(board.at(111)).haveser++;
 	}
 
-	/*//score ระบบคะแนน
-	sf::Font amazingfont;
+	//score ระบบคะแนน
+	/*sf::Font amazingfont;
     if(!amazingfont.loadFromFile("image\\ShortBaby-Mg2w.ttf"))
 	   printf("Load ttf fail");
 
@@ -251,7 +252,7 @@ int main()
 	Score.setFillColor(sf::Color::Black);
 	Score.setOutlineColor(sf::Color::Cyan);
 	Score.setOutlineThickness(8.f);
-
+    
 	//guide exit ในเกม
 	sf::Texture guide;
 	guide.loadFromFile("image\\startgame2\\8.guide.png");
@@ -278,6 +279,15 @@ int main()
 		if(turn){
 			sf::Event event;
 			while (window.pollEvent(event)){
+				//ปุ่ม guide and exit
+				/*if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+				    if(guider.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
+					(ลอกจาก startgame);
+				    }
+					if(exiter.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
+					window.close();
+				    }
+				}*/
 				// ถ้ามีการปิดหน้าต่างให้ปิดโปรแกรม
 				if (event.type == sf::Event::Closed)
 					window.close();
@@ -394,8 +404,8 @@ int main()
 		// แสดงเฟรมใหม่
 		/*window.draw(guider);
 		window.draw(Score);
-		window.draw(exiter);
-		window.display();*/
+		window.draw(exiter);*/
+		window.display();
 
 	}
 
