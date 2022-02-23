@@ -305,17 +305,21 @@ int main()
 					else{
 						for(int i = 0; i < int(board.size()); i++){
 							if(Splayer.at(Pwhich).getsprite().getGlobalBounds().intersects(board.at(i).getsprite().getGlobalBounds())){
-								isclick = false;
-								turn = false;
-								network.senttext("pos");
-								network.senttext(to_string(Pwhich));
-								network.senttext(to_string(Splayer.at(Pwhich).posx+30));
-								network.senttext(to_string(Splayer.at(Pwhich).posy+35));
-								network.senttext("pass");
-								break;
+								if(board.at(i).haveplayer == 0){
+									isclick = false;
+									turn = false;
+									network.senttext("pos");
+									network.senttext(to_string(Pwhich));
+									network.senttext(to_string(Splayer.at(Pwhich).posx+30));
+									network.senttext(to_string(Splayer.at(Pwhich).posy+35));
+									network.senttext("pass");
+									board[i].haveplayer++;
+									board[i].index_player = Pwhich;
+									Splayer[Pwhich].index_board = i;
+									break;
+								}
 							}
 						}
-						isclick = false;
 					}
 
 				}
@@ -342,6 +346,13 @@ int main()
 				double x = stof(network.recievedtext());
 				double y = stof(network.recievedtext());
 				Cplayer[po].Changepos(x,y);
+				for(int i = 0; i < int(board.size()); i++){
+					if(Cplayer.at(po).getsprite().getGlobalBounds().intersects(board.at(i).getsprite().getGlobalBounds())){
+						board[i].haveplayer++;
+						board[i].index_player = po;
+						Cplayer[po].index_board = i;
+					}
+				}
 			}
 			else if(text == "con"){
 				double po = stof(network.recievedtext());

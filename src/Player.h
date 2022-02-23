@@ -25,6 +25,7 @@ class Player{
 
 	public:
 		double posx, posy;
+		int index_board;
 
 		Player(char, double, double);
 		void Texture_Img();
