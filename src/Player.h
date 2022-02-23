@@ -31,5 +31,16 @@ class Player{
 		void Texture_Img();
 		void Sprite_Img();
 		void Draw(sf::RenderWindow &window);
-
+		int Score();
 };
+/*int Player::Score(){
+	bool kon = true;
+    if(kon){
+		if(แหน่งคน == ตำแหน่งภาพป่า){
+			isDead = true;
+		}
+	}
+	if(isDead){
+		score
+	}
+}*/

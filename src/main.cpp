@@ -30,8 +30,8 @@ int main()
 	// กำหนดขนาด window ความละเอียด 1920*1080 แบบเต็มจอ
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive forest from atlantis"); //,
 
-	//Startgame a;
-	//a.start(window);
+	Startgame a;
+	a.start(window);
 
 	char mode = 's';
 
@@ -234,6 +234,13 @@ int main()
 		(board.at(111)).haveser++;
 	}
 
+	//score ระบบคะแนน
+	sf::Font amazingfont;
+    if(!amazingfont.loadFromFile("image\\ShortBaby-Mg2w.ttf"))
+	   printf("Load ttf fail");
+
+	sf::Text Score("Score",amazingfont,80);
+    int score;
 	bool turn;
 	if(mode == 's') turn = true;
 	else turn = false;
@@ -319,7 +326,7 @@ int main()
 		for (int i = 0; i < int(serpent.size()); i++) serpent[i].Draw(window);
 
 		// แสดงเฟรมใหม่
-
+		window.draw(Score);
 		window.display();
 
 	}
