@@ -4,22 +4,23 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
 
+#include "Boardgame.h"
 #include "Dolphin.h"
 #include "Shark.h"
+
 #include <iostream>
 #include <string>
 #include <vector>
+
 using namespace std;
 
 class Cardevent
 {
-	int number;
-
 public:
 	vector<Dolphin>& dolphin();
 	vector<Shark>& shark();
 
-	Cardevent(int, vector<Dolphin>&, vector<Shark>&);
+	Cardevent(vector<Dolphin>& dolphin, vector<Shark>& shark);
 	void PlusDolphin(vector<Dolphin>&);
 	void PlusShark(vector<Shark>&);
 	void MoveDolphin(vector<Dolphin>&);
