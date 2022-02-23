@@ -25,6 +25,8 @@ class Startgame{
 	"image\\startgame2\\7.second frame4remake.jpg"};
 	string poc[5] = {"image\\Guide\\9.guide1.png","image\\Guide\\9.guide2.png","image\\Guide\\9.guide3.png",
 	"image\\Guide\\9.guide4.png","image\\Guide\\9.guide5.png"};
+	string pmc[4] = {"image\\Startgame\\6.start game1.png","image\\Startgame\\6.start game2.png","image\\Startgame\\6.start game3.png",
+	"image\\Startgame\\6.start game4.png"};
 	public :
 		int GetTimes();
 		void start(sf::RenderWindow &);
@@ -40,12 +42,12 @@ int Startgame::GetTimes(){
 
 void Startgame::start(sf::RenderWindow &window){
     //ตำแหนงปุ่มหน้าแรก
-	/*sf::CircleShape c1;
+	sf::CircleShape c1;
 	c1.setRadius(95.f);
 	c1.setFillColor(sf::Color::Transparent);
 	c1.setOutlineColor(sf::Color::White);
 	c1.setOutlineThickness(10.f);
-    c1.setPosition(130.f,48.f);*/
+    c1.setPosition(130.f,48.f);
 
 
 	sf::RectangleShape r1;
@@ -113,6 +115,10 @@ void Startgame::start(sf::RenderWindow &window){
 				window.close();
 			// server
 			if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+				//Decktop game
+				if(c1.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
+					g = false;
+				}
             	if(r1.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
 					sign11.setTexture(sign1);
 					g = false;
