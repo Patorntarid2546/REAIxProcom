@@ -34,7 +34,7 @@ int main()
 	// Startgame a;
 	// a.start(window);
 
-	char mode = 'c';
+	char mode = 's';
 
 	Network network;
 	network.connect(mode,"");
@@ -252,7 +252,7 @@ int main()
 	Score.setFillColor(sf::Color::Black);
 	Score.setOutlineColor(sf::Color::Cyan);
 	Score.setOutlineThickness(8.f);
-    
+
 	//guide exit ในเกม
 	sf::Texture guide;
 	guide.loadFromFile("image\\startgame2\\8.guide.png");
@@ -276,6 +276,7 @@ int main()
 	// int keepplayer;
 
 	while (window.isOpen()){
+		if(int(Splayer.size()) + int(Cplayer.size()) == 36) break;
 		if(turn){
 			sf::Event event;
 			while (window.pollEvent(event)){
@@ -308,8 +309,8 @@ int main()
 								turn = false;
 								network.senttext("pos");
 								network.senttext(to_string(Pwhich));
-								network.senttext(to_string(Splayer.at(Pwhich).posx));
-								network.senttext(to_string(Splayer.at(Pwhich).posy));
+								network.senttext(to_string(Splayer.at(Pwhich).posx+30));
+								network.senttext(to_string(Splayer.at(Pwhich).posy+35));
 								network.senttext("pass");
 								break;
 							}
@@ -323,6 +324,10 @@ int main()
 						float x = event.mouseMove.x;
 						float y = event.mouseMove.y;
 						Splayer[Pwhich].Changepos(x,y);
+						network.senttext("con");
+						network.senttext(to_string(Pwhich));
+						network.senttext(to_string(x));
+						network.senttext(to_string(y));
 					}
 				}
 			}
@@ -333,6 +338,12 @@ int main()
 			string text = network.recievedtext();
 			if(text == "pass") turn = true;
 			else if(text == "pos"){
+				double po = stof(network.recievedtext());
+				double x = stof(network.recievedtext());
+				double y = stof(network.recievedtext());
+				Cplayer[po].Changepos(x,y);
+			}
+			else if(text == "con"){
 				double po = stof(network.recievedtext());
 				double x = stof(network.recievedtext());
 				double y = stof(network.recievedtext());
