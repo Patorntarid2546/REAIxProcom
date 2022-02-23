@@ -33,6 +33,7 @@ class Boardgame{
 		void Draw(sf::RenderWindow &window);
 
 		int havedol = 0, haveshark = 0, haveplayer = 0, haveser = 0, haveall = haveshark+haveplayer+haveshark;
+		int index_player;
 
 		void ChangeType(string);
 		vector <int> getqrs();
