@@ -30,8 +30,8 @@ int main()
 	// กำหนดขนาด window ความละเอียด 1920*1080 แบบเต็มจอ
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive forest from atlantis"); //,
 
-	Startgame a;
-	a.start(window);
+	//Startgame a;
+	//a.start(window);
 
 	char mode = 's';
 
@@ -240,7 +240,6 @@ int main()
 	   printf("Load ttf fail");
 
 	sf::Text Score("Score",amazingfont,80);
-    int score;
 	bool turn;
 	if(mode == 's') turn = true;
 	else turn = false;
