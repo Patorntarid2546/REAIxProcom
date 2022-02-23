@@ -169,6 +169,13 @@ int main()
 		Splayer.push_back(Player(mode, ((board[168]).getcen()).at(0)+48, ((board[69]).getcen()).at(1)));
 	}
 
+	char Emode;
+	if(mode == 's') Emode = 'c';
+	else Emode = 's';
+	for(int i = 0; i < 18; i++){
+		Cplayer.push_back(Player(Emode, ((board[168]).getcen()).at(0)+48, ((board[69]).getcen()).at(1)));
+	}
+
 	vector<Dolphin> dolphin;
 	vector<Shark> shark;
 	vector<Serpent> serpent;
@@ -280,11 +287,23 @@ int main()
 							if(Splayer.at(i).getsprite().getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
 								isclick = true;
 								Pwhich = i;
+								break;
 							}
 						}
-						isclick = true;
 					}
 					else{
+						for(int i = 0; i < int(board.size()); i++){
+							if(Splayer.at(Pwhich).getsprite().getGlobalBounds().intersects(board.at(i).getsprite().getGlobalBounds())){
+								isclick = false;
+								turn = false;
+								network.senttext("pos");
+								network.senttext(to_string(Pwhich));
+								network.senttext(to_string(Splayer.at(Pwhich).posx));
+								network.senttext(to_string(Splayer.at(Pwhich).posy));
+								network.senttext("pass");
+								break;
+							}
+						}
 						isclick = false;
 					}
 
@@ -301,7 +320,14 @@ int main()
 			network.senttext("");
 		}
 		else{
-
+			string text = network.recievedtext();
+			if(text == "pass") turn = true;
+			else if(text == "pos"){
+				double po = stof(network.recievedtext());
+				double x = stof(network.recievedtext());
+				double y = stof(network.recievedtext());
+				Cplayer[po].Changepos(x,y);
+			}
 		}
 		// เคลียร์เฟรมเดิม
 		window.clear();

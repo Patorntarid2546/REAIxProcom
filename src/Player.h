@@ -25,7 +25,6 @@ class Player{
 
 	public:
 		double posx, posy;
-		double cenx = posx+30, ceny = posy+35;
 
 		Player(char, double, double);
 		void Texture_Img();
