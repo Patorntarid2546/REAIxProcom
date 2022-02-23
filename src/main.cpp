@@ -406,8 +406,12 @@ int main()
 	bool phase_two = true;
 	// bool phase_three = false;
 
+	int hav = 0;
+
 	cout << "Start" << endl;
 
+	//ห้ามลบ เอาไว้เคลียร์แคช
+	cout << network.recievedtext() << endl;
 
 	while (window.isOpen()){
 		// cout << phase_three << endl;
@@ -438,37 +442,63 @@ int main()
 							}
 						}
 						else{
+							hav = 0;
 							for(int i = 0; i < int(board.size()); i++){
 								if((board.at(i).getsprite().getGlobalBounds()).contains(Splayer.at(Pwhich).getcen().at(0), Splayer.at(Pwhich).getcen().at(1))){
-									if(board.at(i).haveplayer == 0){
-										int distance = board[i] + board[Bwhich];
-										if(board[i].GetType() == "island"){
-											if(distance <= 3){
-												isclick = false;
-												phase_two = false;
-												// phase_three = true;
-												network.sentpos(Pwhich, Splayer.at(Pwhich).posx, Splayer.at(Pwhich).posy);
-												board[i].haveplayer++;
-												board[i].index_player = Pwhich;
-												Splayer[Pwhich].index_board = i;
-												network.senttext("pass");
-												turn = false;
-												break;
+									int distance = board[i] + board[Bwhich];
+									if(board[Bwhich].GetType() == "island"){
+										if(board[i].GetType() == "water"){
+											for(int j = 0; j < int(board.size()); j++){
+												if((board[j].GetType() == "water")&& (j!=i)){
+													if(board[i] + board[j] <= 1){
+														hav++;
+													}
+												}
+											}
+											if(hav < 6){
+												if(distance <= 3){
+													isclick = false;
+													// phase_two = false;
+													// phase_three = true;
+													network.sentpos(Pwhich, Splayer.at(Pwhich).posx, Splayer.at(Pwhich).posy);
+													cout << "sent" << endl;
+													board[i].haveplayer++;
+													board[i].index_player = Pwhich;
+													Splayer[Pwhich].index_board = i;
+													network.senttext("pass");
+													turn = false;
+													break;
+												}
 											}
 										}
 										else{
-											if(distance <= 1){
+											if(distance <= 3){
 												isclick = false;
-												phase_two = false;
+												// phase_two = false;
 												// phase_three = true;
 												network.sentpos(Pwhich, Splayer.at(Pwhich).posx, Splayer.at(Pwhich).posy);
+												cout << "sent" << endl;
 												board[i].haveplayer++;
 												board[i].index_player = Pwhich;
 												Splayer[Pwhich].index_board = i;
 												network.senttext("pass");
 												turn = false;
-												break;
-											}
+												}
+										}
+										break;
+									}
+									else{
+										if(distance <= 1){
+											isclick = false;
+											// phase_two = false;
+											// phase_three = true;
+											network.sentpos(Pwhich, Splayer.at(Pwhich).posx, Splayer.at(Pwhich).posy);
+											board[i].haveplayer++;
+											board[i].index_player = Pwhich;
+											Splayer[Pwhich].index_board = i;
+											network.senttext("pass");
+											turn = false;
+											break;
 										}
 									}
 								}
@@ -480,10 +510,10 @@ int main()
 							float x = event.mouseMove.x;
 							float y = event.mouseMove.y;
 							Splayer[Pwhich].Changepos(x,y);
-							// network.senttext("con");
-							// network.senttext(to_string(Pwhich));
-							// network.senttext(to_string(x));
-							// network.senttext(to_string(y));
+							network.senttext("con");
+							network.senttext(to_string(Pwhich));
+							network.senttext(to_string(x));
+							network.senttext(to_string(y));
 						}
 					}
 				}
@@ -493,7 +523,6 @@ int main()
 			string text = network.recievedtext();
 			if(text == "pass"){
 				turn = true;
-				cout << "PPass" << endl;
 			}
 			else if(text == "pos"){
 				double po = stof(network.recievedtext());
@@ -503,7 +532,6 @@ int main()
 				Cplayer[po].Draw(window);
 				for(int i = 0; i < int(board.size()); i++){
 					if((board.at(i).getsprite().getGlobalBounds()).contains(Cplayer.at(po).getcen().at(0), Cplayer.at(po).getcen().at(1))){
-						cout << "ok0" << endl;
 						board[i].haveplayer++;
 						board[i].index_player = po;
 						Cplayer[po].index_board = i;
