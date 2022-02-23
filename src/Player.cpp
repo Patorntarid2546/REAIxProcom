@@ -21,3 +21,12 @@ void Player::Draw(sf::RenderWindow &window){
 	Sprite_Img();
 	window.draw(img2);
 }
+
+sf::Sprite Player::getsprite(){
+	return img2;
+}
+
+void Player::Changepos(double a, double b){
+	posx = a-30;
+	posy = b-35;
+}

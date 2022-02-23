@@ -30,8 +30,8 @@ int main()
 	// กำหนดขนาด window ความละเอียด 1920*1080 แบบเต็มจอ
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive forest from atlantis"); //,
 
-	//Startgame a;
-	//a.start(window);
+	// Startgame a;
+	// a.start(window);
 
 	char mode = 's';
 
@@ -241,10 +241,15 @@ int main()
 
 	sf::Text Score("Score",amazingfont,80);
 	bool turn;
+	bool isclick = false;
+	int which = 0;
 	if(mode == 's') turn = true;
 	else turn = false;
+	int keepboard;
+	int whi = 0;
+	// int keepplayer;
 
-	for (int i = 0; i < 18 ; i++){
+	while (window.isOpen()){
 		if(turn){
 			sf::Event event;
 			while (window.pollEvent(event)){
@@ -252,21 +257,34 @@ int main()
 				if (event.type == sf::Event::Closed)
 					window.close();
 				if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-					int z = board.size();
-					for(int i = 0; i < z; i++){
-						if(board.at(i).getsprite().getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
-							cout << i << endl;
-							network.senttext("pass");
-							turn = false;
+					if(isclick == false){
+						for(int i = 0; i < int(Splayer.size()); i++){
+							if(Splayer.at(i).getsprite().getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
+								stat = true;
+								which = i;
+								cout << which << endl;
+							}
 						}
+						isclick = true;
+					}
+					else{
+						isclick = false;
+					}
+
+				}
+				if (event.type == sf::Event::MouseMoved){
+					if(isclick){
+						float x = event.mouseMove.x;
+						float y = event.mouseMove.y;
+						Splayer[which].Changepos(x,y);
 					}
 				}
 			}
-			network.senttext("kkmmoi");
-			cout << "sent" << endl;
+
+			network.senttext("");
 		}
 		else{
-			if(network.recievedtext() == "pass") turn = true;
+
 		}
 		// เคลียร์เฟรมเดิม
 		window.clear();
@@ -275,6 +293,9 @@ int main()
 
 		// พื้นที่
 		for (int i = 0; i < int(board.size()); i++) board[i].Draw(window);
+
+		// Enplayer
+		for (int i = 0; i < int(Cplayer.size()); i++) Cplayer[i].Draw(window);
 
 		// player
 		for (int i = 0; i < int(Splayer.size()); i++) Splayer[i].Draw(window);
@@ -311,6 +332,9 @@ int main()
 
 		// พื้นที่
 		for (int i = 0; i < int(board.size()); i++) board[i].Draw(window);
+
+		// Enplayer
+		for (int i = 0; i < int(Cplayer.size()); i++) Cplayer[i].Draw(window);
 
 		// player
 		for (int i = 0; i < int(Splayer.size()); i++) Splayer[i].Draw(window);

@@ -31,8 +31,12 @@ class Player{
 		void Texture_Img();
 		void Sprite_Img();
 		void Draw(sf::RenderWindow &window);
-		int Score();
+		sf::Sprite getsprite();
+		void Changepos(double, double);
+
 };
+
+
 /*int Player::Score(){
 	bool kon = true;
     if(kon){
