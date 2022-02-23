@@ -271,12 +271,14 @@ int main()
 	int Pwhich = 0;
 	if(mode == 's') turn = true;
 	else turn = false;
-	// int keepboard;
-	// int whi = 0;
-	// int keepplayer;
+	int check = 0;
+	bool bk = false;
+
 
 	while (window.isOpen()){
-		if(int(Splayer.size()) + int(Cplayer.size()) == 36) break;
+		if(bk){
+			break;
+		}
 		if(turn){
 			sf::Event event;
 			while (window.pollEvent(event)){
@@ -306,17 +308,19 @@ int main()
 						for(int i = 0; i < int(board.size()); i++){
 							if(Splayer.at(Pwhich).getsprite().getGlobalBounds().intersects(board.at(i).getsprite().getGlobalBounds())){
 								if(board.at(i).haveplayer == 0){
-									isclick = false;
-									turn = false;
-									network.senttext("pos");
-									network.senttext(to_string(Pwhich));
-									network.senttext(to_string(Splayer.at(Pwhich).posx+30));
-									network.senttext(to_string(Splayer.at(Pwhich).posy+35));
-									network.senttext("pass");
-									board[i].haveplayer++;
-									board[i].index_player = Pwhich;
-									Splayer[Pwhich].index_board = i;
-									break;
+									if(board.at(i).GetType() == "island"){
+										isclick = false;
+										turn = false;
+										network.senttext("pos");
+										network.senttext(to_string(Pwhich));
+										network.senttext(to_string(Splayer.at(Pwhich).posx+30));
+										network.senttext(to_string(Splayer.at(Pwhich).posy+35));
+										network.senttext("pass");
+										board[i].haveplayer++;
+										board[i].index_player = Pwhich;
+										Splayer[Pwhich].index_board = i;
+										break;
+									}
 								}
 							}
 						}
@@ -328,15 +332,14 @@ int main()
 						float x = event.mouseMove.x;
 						float y = event.mouseMove.y;
 						Splayer[Pwhich].Changepos(x,y);
-						network.senttext("con");
-						network.senttext(to_string(Pwhich));
-						network.senttext(to_string(x));
-						network.senttext(to_string(y));
+						// network.senttext("con");
+						// network.senttext(to_string(Pwhich));
+						// network.senttext(to_string(x));
+						// network.senttext(to_string(y));
 					}
 				}
 			}
 
-			network.senttext("");
 		}
 		else{
 			string text = network.recievedtext();
@@ -346,11 +349,19 @@ int main()
 				double x = stof(network.recievedtext());
 				double y = stof(network.recievedtext());
 				Cplayer[po].Changepos(x,y);
+				Cplayer[po].Draw(window);
 				for(int i = 0; i < int(board.size()); i++){
 					if(Cplayer.at(po).getsprite().getGlobalBounds().intersects(board.at(i).getsprite().getGlobalBounds())){
+						cout << "ok0" << endl;
 						board[i].haveplayer++;
 						board[i].index_player = po;
 						Cplayer[po].index_board = i;
+						check++;
+						if(check == 18){
+							network.senttext("break");
+							bk = true;
+						}
+						break;
 					}
 				}
 			}
@@ -360,6 +371,7 @@ int main()
 				double y = stof(network.recievedtext());
 				Cplayer[po].Changepos(x,y);
 			}
+			if(text == "break") bk = true;
 		}
 		// เคลียร์เฟรมเดิม
 		window.clear();
