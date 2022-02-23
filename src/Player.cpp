@@ -30,3 +30,10 @@ void Player::Changepos(double a, double b){
 	posx = a-30;
 	posy = b-35;
 }
+
+vector<double> Player::getcen(){
+	vector<double> a;
+	a.push_back(posx+30);
+	a.push_back(posy+35);
+	return a;
+}

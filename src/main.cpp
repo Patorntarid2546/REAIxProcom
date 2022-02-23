@@ -306,7 +306,7 @@ int main()
 					}
 					else{
 						for(int i = 0; i < int(board.size()); i++){
-							if(Splayer.at(Pwhich).getsprite().getGlobalBounds().intersects(board.at(i).getsprite().getGlobalBounds())){
+							if((board.at(i).getsprite().getGlobalBounds()).contains(Splayer.at(Pwhich).getcen().at(0), Splayer.at(Pwhich).getcen().at(1))){
 								if(board.at(i).haveplayer == 0){
 									if(board.at(i).GetType() == "island"){
 										isclick = false;
@@ -351,17 +351,16 @@ int main()
 				Cplayer[po].Changepos(x,y);
 				Cplayer[po].Draw(window);
 				for(int i = 0; i < int(board.size()); i++){
-					if(Cplayer.at(po).getsprite().getGlobalBounds().intersects(board.at(i).getsprite().getGlobalBounds())){
+					if((board.at(i).getsprite().getGlobalBounds()).contains(Cplayer.at(po).getcen().at(0), Cplayer.at(po).getcen().at(1))){
 						cout << "ok0" << endl;
 						board[i].haveplayer++;
 						board[i].index_player = po;
 						Cplayer[po].index_board = i;
 						check++;
-						if(check == 18){
+						if(check == 3){
 							network.senttext("break");
 							bk = true;
 						}
-						break;
 					}
 				}
 			}

@@ -33,7 +33,7 @@ class Player{
 		void Draw(sf::RenderWindow &window);
 		sf::Sprite getsprite();
 		void Changepos(double, double);
-
+		vector<double> getcen();
 };
 
 
