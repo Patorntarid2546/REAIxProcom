@@ -234,19 +234,37 @@ int main()
 		(board.at(111)).haveser++;
 	}
 
-	//score ระบบคะแนน
+	/*//score ระบบคะแนน
 	sf::Font amazingfont;
     if(!amazingfont.loadFromFile("image\\ShortBaby-Mg2w.ttf"))
 	   printf("Load ttf fail");
 
 	sf::Text Score("Score",amazingfont,80);
+	Score.setPosition(1480,950);
+	Score.setFillColor(sf::Color::Black);
+	Score.setOutlineColor(sf::Color::Cyan);
+	Score.setOutlineThickness(8.f);
+
+	//guide exit ในเกม
+	sf::Texture guide;
+	guide.loadFromFile("image\\startgame2\\8.guide.png");
+	sf::Sprite guider;
+    guider.setTexture(guide);
+	guider.setPosition(1870,600);
+
+	sf::Texture exit;
+	exit.loadFromFile("image\\startgame2\\8.leave.png");
+    sf::Sprite exiter;
+	exiter.setTexture(exit);
+	exiter.setPosition(1870,200);*/
+
 	bool turn;
 	bool isclick = false;
-	int which = 0;
+	int Pwhich = 0;
 	if(mode == 's') turn = true;
 	else turn = false;
-	int keepboard;
-	int whi = 0;
+	// int keepboard;
+	// int whi = 0;
 	// int keepplayer;
 
 	while (window.isOpen()){
@@ -260,9 +278,8 @@ int main()
 					if(isclick == false){
 						for(int i = 0; i < int(Splayer.size()); i++){
 							if(Splayer.at(i).getsprite().getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
-								stat = true;
-								which = i;
-								cout << which << endl;
+								isclick = true;
+								Pwhich = i;
 							}
 						}
 						isclick = true;
@@ -276,7 +293,7 @@ int main()
 					if(isclick){
 						float x = event.mouseMove.x;
 						float y = event.mouseMove.y;
-						Splayer[which].Changepos(x,y);
+						Splayer[Pwhich].Changepos(x,y);
 					}
 				}
 			}
@@ -349,8 +366,10 @@ int main()
 		for (int i = 0; i < int(serpent.size()); i++) serpent[i].Draw(window);
 
 		// แสดงเฟรมใหม่
+		/*window.draw(guider);
 		window.draw(Score);
-		window.display();
+		window.draw(exiter);
+		window.display();*/
 
 	}
 
