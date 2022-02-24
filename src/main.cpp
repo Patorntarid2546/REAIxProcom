@@ -33,14 +33,14 @@ int main()
 	// กำหนดขนาด window ความละเอียด 1920*1080 แบบเต็มจอ
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive forest from atlantis"); //,
 
-	//Startgame B(false);
-	//B.start(window);
+	Startgame B(false);
+	B.start(window);
 
 
-	//Startgame a(true);
-	//a.start(window);
+	Startgame a(true);
+	a.start(window);
 
-	char mode = 's';
+	char mode = 'c';
 
 	Network network;
 	network.connect(mode,"");
@@ -323,14 +323,14 @@ int main()
 		if(turn){
 			while (window.pollEvent(event)){
 				//ปุ่ม guide and exit
-				/*if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-				    if(guider.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
+				if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+				    /*if(guider.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
 					(ลอกจาก startgame);
-				    }
+				    }*/
 					if(exiter.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
 					window.close();
 				    }
-				}*/
+				}
 				// ถ้ามีการปิดหน้าต่างให้ปิดโปรแกรม
 				if (event.type == sf::Event::Closed)
 					window.close();
