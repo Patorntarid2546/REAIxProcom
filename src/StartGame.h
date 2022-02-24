@@ -67,6 +67,13 @@ void Startgame::start(sf::RenderWindow &window){
 	c1.setOutlineThickness(10.f);
     c1.setPosition(130.f,48.f);
 
+	sf::CircleShape c2;
+	c2.setRadius(40.f);
+	c2.setFillColor(sf::Color::Transparent);
+	c2.setOutlineColor(sf::Color::Black);
+	c2.setOutlineThickness(8.f);
+    c2.setPosition(1370.f,292.f);
+
 
 	sf::RectangleShape r1;
 	r1.setSize(sf::Vector2f(420,115));
@@ -91,8 +98,8 @@ void Startgame::start(sf::RenderWindow &window){
 
 	sf::Texture sign1;
 	sf::Texture sign2;
-	sign1.loadFromFile("image\\startgame2\\7.1menu.png");
-	sign2.loadFromFile("image\\startgame2\\7.1menu1.png");
+	sign1.loadFromFile("image\\startgame2\\7.2menu1.png");
+	sign2.loadFromFile("image\\startgame2\\7.2menu2.png");
 	sf::Sprite sign11;
 	sign11.setPosition(0,0);
 
@@ -137,8 +144,8 @@ void Startgame::start(sf::RenderWindow &window){
 		score[i].setOutlineThickness(8.f);
 	}
 
-	score.push_back(sf::Text(str,amazingfont,80));
-	score[10].setPosition(600,380);
+	score.push_back(sf::Text(str,amazingfont,50));
+	score[10].setPosition(840,400);
 	score[10].setFillColor(sf::Color::Black);
 	score[10].setOutlineColor(sf::Color::Cyan);
 	score[10].setOutlineThickness(8.f);
@@ -187,7 +194,9 @@ void Startgame::start(sf::RenderWindow &window){
 					sc = false;
 					break;
 				}
-
+				if(c2.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
+					//ปิดป้าย
+    				}
 				if(sc){
 					for(int i = 0; i < int(score.size()); i++){
 						if(score[i].getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
@@ -238,6 +247,7 @@ void Startgame::start(sf::RenderWindow &window){
 					if(num >= 4) num = 0;
 				}
 			}
+			window.draw(c2);
 			window.draw(img2);
 			window.draw(sign11);
 
