@@ -37,3 +37,10 @@ vector<double> Player::getcen(){
 	a.push_back(posy+35);
 	return a;
 }
+
+vector<double> Player::getpos(){
+	vector<double> a;
+	a.push_back(posx);
+	a.push_back(posy);
+	return a;
+}

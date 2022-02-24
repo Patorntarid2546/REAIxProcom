@@ -34,6 +34,7 @@ class Player{
 		sf::Sprite getsprite();
 		void Changepos(double, double);
 		vector<double> getcen();
+		vector<double> getpos();
 };
 
 
