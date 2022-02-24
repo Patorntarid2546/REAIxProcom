@@ -573,7 +573,6 @@ int main()
 											board[i].alive = false;
 											num_sand--;
 											board[i].Delete();
-											turn = false;
 											network.senttext("delete");
 											network.senttext(to_string(i));
 											network.senttext("sand");
@@ -588,7 +587,6 @@ int main()
 											board[i].alive = false;
 											num_solid--;
 											board[i].Delete();
-											turn = false;
 											network.senttext("delete");
 											network.senttext(to_string(i));
 											network.senttext("solid");
@@ -603,7 +601,6 @@ int main()
 											board[i].alive = false;
 											num_mount--;
 											board[i].Delete();
-											turn = false;
 											network.senttext("delete");
 											network.senttext(to_string(i));
 											network.senttext("mount");
