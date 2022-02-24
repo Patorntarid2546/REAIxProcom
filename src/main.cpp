@@ -21,6 +21,7 @@
 #include "Shark.h"
 #include "Serpent.h"
 #include "Dice.h"
+#include "Checkscore.h"
 
 int main()
 {
@@ -36,8 +37,8 @@ int main()
 	// B.start(window);
 
 
-	Startgame a(true);
-	a.start(window);
+	//Startgame a(true);
+	//a.start(window);
 
 	char mode = 'c';
 
@@ -170,6 +171,20 @@ int main()
 
 	vector<Player> Splayer;
 	vector<Player> Cplayer;
+
+
+	// vector<Checkscore> check;
+	// vector<int> chec;
+	// for (int j = 0;j <= 17;j++){
+	// 	for(int i = 0; int(board.size()); i++){
+	// 		vector<double> posplayer = Cplayer.at(j).getpos();
+	// 		vector<double> posboard = board.at(i).getpos();
+	// 		string type = board.at(i).GetType();
+	// 		chec = check.at(0).checkpos(posplayer,posboard,type);
+	// 	}
+
+	// }
+
 
 	for(int i = 0; i < 18; i++){
 		Splayer.push_back(Player(mode, ((board[168]).getcen()).at(0)+48, ((board[69]).getcen()).at(1)));
