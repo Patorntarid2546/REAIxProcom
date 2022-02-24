@@ -36,12 +36,12 @@ int main()
 	char mode = 's';
 	string my_ipp;
 
-	Startgame B(false);
-	B.start(window, my_ipp, mode);
+	// Startgame B(false);
+	// B.start(window, my_ipp, mode);
 
 
-	Startgame a(true);
-	a.start(window, my_ipp, mode);
+	// Startgame a(true);
+	// a.start(window, my_ipp, mode);
 
     cout << " startto" << endl;
 
@@ -450,10 +450,10 @@ int main()
 	Pwhich = 0;
 	int Bwhich;
 	// bool phase_one = false;
-	bool phase_two = false;
+	bool phase_two = true;
 	bool phase_three = false;
-	bool phase_four = true;
-	bool phase_four_once = true;
+	bool phase_four = false;
+
 
 	int hav = 0;
 
@@ -580,7 +580,6 @@ int main()
 											network.senttext("pass");
 											phase_three = false;
 											phase_four = true;
-											phase_four_once = true;
 											ranran = rand()%3;
 										}
 									}
@@ -596,7 +595,6 @@ int main()
 											network.senttext("pass");
 											phase_three = false;
 											phase_four = true;
-											phase_four_once = true;
 											ranran = rand()%3;
 										}
 									}
@@ -612,7 +610,6 @@ int main()
 											network.senttext("pass");
 											phase_three = false;
 											phase_four = true;
-											phase_four_once = true;
 											ranran = rand()%3;
 										}
 									}
@@ -633,7 +630,6 @@ int main()
 											if((board.at(j).getsprite().getGlobalBounds()).contains(serpent.at(i).getcen().at(0), serpent.at(i).getcen().at(1))){
 												Bwhich = j;
 												isclick = true;
-												phase_four_once = false;
 												break;
 											}
 										}
@@ -642,7 +638,6 @@ int main()
 										isclick = false;
 										turn = false;
 										phase_four = false;
-										phase_four_once = false;
 										phase_two = true;
 										isclick = false;
 										Pwhich = 0;
@@ -658,6 +653,78 @@ int main()
 								float x = event.mouseMove.x;
 								float y = event.mouseMove.y;
 								serpent[Pwhich].Changepos(x,y);
+							}
+						}
+					}
+					else if(ranran == 1){
+						if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+							for(int i = 0; i < int(shark.size()) ;i++){
+								if(shark.at(i).getsprite().getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
+									if(isclick == false){
+										Pwhich = i;
+										for(int j = 0; j < int(board.size()); j++){
+											if((board.at(j).getsprite().getGlobalBounds()).contains(shark.at(i).getcen().at(0), shark.at(i).getcen().at(1))){
+												Bwhich = j;
+												isclick = true;
+												break;
+											}
+										}
+									}
+									else{
+										isclick = false;
+										turn = false;
+										phase_four = false;
+										phase_two = true;
+										isclick = false;
+										Pwhich = 0;
+										check = 0;
+										bk = false;
+										network.senttext("pass");
+									}
+								}
+							}
+						}
+						if (event.type == sf::Event::MouseMoved){
+							if(isclick){
+								float x = event.mouseMove.x;
+								float y = event.mouseMove.y;
+								shark[Pwhich].Changepos(x,y);
+							}
+						}
+					}
+					else if(ranran ==2){
+						if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+							for(int i = 0; i < int(dolphin.size()) ;i++){
+								if(dolphin.at(i).getsprite().getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
+									if(isclick == false){
+										Pwhich = i;
+										for(int j = 0; j < int(board.size()); j++){
+											if((board.at(j).getsprite().getGlobalBounds()).contains(dolphin.at(i).getcen().at(0), dolphin.at(i).getcen().at(1))){
+												Bwhich = j;
+												isclick = true;
+												break;
+											}
+										}
+									}
+									else{
+										isclick = false;
+										turn = false;
+										phase_four = false;
+										phase_two = true;
+										isclick = false;
+										Pwhich = 0;
+										check = 0;
+										bk = false;
+										network.senttext("pass");
+									}
+								}
+							}
+						}
+						if (event.type == sf::Event::MouseMoved){
+							if(isclick){
+								float x = event.mouseMove.x;
+								float y = event.mouseMove.y;
+								dolphin[Pwhich].Changepos(x,y);
 							}
 						}
 					}
@@ -729,7 +796,7 @@ int main()
 		window.draw(Score);
 		window.draw(exiter);
 
-		if(phase_four_once){
+		if(phase_four){
 			dice[ranran].Draw(window);
 		}
 

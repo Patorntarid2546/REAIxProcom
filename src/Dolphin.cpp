@@ -33,3 +33,19 @@ vector<double> Dolphin::getpos()
 	a.push_back(ceny);
 	return a;
 }
+
+sf::Sprite Dolphin::getsprite(){
+	return img2;
+}
+
+vector<double> Dolphin::getcen(){
+	vector<double> a;
+	a.push_back(cenx);
+	a.push_back(ceny);
+	return a;
+}
+
+void Dolphin::Changepos(double x, double y){
+	posx = x-30;
+	posy = y-35;
+}

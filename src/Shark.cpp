@@ -33,3 +33,19 @@ vector<double> Shark::getpos()
 	a.push_back(ceny);
 	return a;
 }
+
+sf::Sprite Shark::getsprite(){
+	return img2;
+}
+
+vector<double> Shark::getcen(){
+	vector<double> a;
+	a.push_back(cenx);
+	a.push_back(ceny);
+	return a;
+}
+
+void Shark::Changepos(double x, double y){
+	posx = x-30;
+	posy = y-35;
+}

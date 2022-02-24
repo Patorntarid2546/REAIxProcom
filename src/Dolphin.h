@@ -31,4 +31,7 @@ public:
 	void Sprite_Img();
 	void Draw(sf::RenderWindow& window);
 	vector<double> getpos();
+	sf::Sprite getsprite();
+	vector<double> getcen();
+	void Changepos(double, double);
 };
