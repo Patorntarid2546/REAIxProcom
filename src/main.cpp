@@ -27,14 +27,14 @@ int main()
 {
 	srand(time(0));
 
-    string poc[5] = {"image\\Guide\\9.guide1.png","image\\Guide\\9.guide2.png","image\\Guide\\9.guide3.png",
-	"image\\Guide\\9.guide4.png","image\\Guide\\9.guide5.png"};
+    string poc[8] = {"image\\Guide\\9.guide6.png","image\\Guide\\9.guide1.png","image\\Guide\\9.guide1.png","image\\Guide\\9.guide2.png","image\\Guide\\9.guide3.png",
+	"image\\Guide\\9.guide4.png","image\\Guide\\9.guide5.png","image\\Guide\\9.guide7.png"};
 
 	// กำหนดขนาด window ความละเอียด 1920*1080 แบบเต็มจอ
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive forest from atlantis"); //,
 
-	// Startgame B(false);
-	// B.start(window);
+	//Startgame B(false);
+	//B.start(window);
 
 
 	//Startgame a(true);
