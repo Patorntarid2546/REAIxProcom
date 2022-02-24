@@ -19,11 +19,12 @@ void Shark::Sprite_Img()
 	img2.setPosition(posx, posy);
 }
 
-void Shark::Draw(sf::RenderWindow& window)
-{
-	Texture_Img();
-	Sprite_Img();
-	window.draw(img2);
+void Shark::Draw(sf::RenderWindow& window){
+	if(isDead == false){
+		Texture_Img();
+		Sprite_Img();
+		window.draw(img2);
+	}
 }
 
 vector<double> Shark::getpos()

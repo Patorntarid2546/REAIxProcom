@@ -19,11 +19,12 @@ void Dolphin::Sprite_Img()
 	img2.setPosition(posx, posy);
 }
 
-void Dolphin::Draw(sf::RenderWindow& window)
-{
-	Texture_Img();
-	Sprite_Img();
-	window.draw(img2);
+void Dolphin::Draw(sf::RenderWindow& window){
+	if(isDead == false){
+		Texture_Img();
+		Sprite_Img();
+		window.draw(img2);
+	}
 }
 
 vector<double> Dolphin::getpos()

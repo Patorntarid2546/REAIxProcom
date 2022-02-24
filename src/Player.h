@@ -19,11 +19,12 @@ class Player{
 	sf::Texture img;
 	sf::Sprite img2;
 
-	bool isDead = false;
+
 
 	char mode;
 
 	public:
+		bool isDead = false;
 		double posx, posy;
 		int index_board;
 

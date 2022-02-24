@@ -20,11 +20,12 @@ class Shark
 	sf::Texture img;
 	sf::Sprite img2;
 
-	bool isDead = false;
+
 
 public:
 	double posx, posy;
 	double cenx = posx + 30, ceny = posy + 35;
+	bool isDead = false;
 
 	Shark(double, double);
 	void Texture_Img();

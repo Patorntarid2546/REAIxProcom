@@ -17,9 +17,11 @@ void Player::Sprite_Img(){
 }
 
 void Player::Draw(sf::RenderWindow &window){
-	Texture_Img();
-	Sprite_Img();
-	window.draw(img2);
+	if(isDead == false){
+		Texture_Img();
+		Sprite_Img();
+		window.draw(img2);
+	}
 }
 
 sf::Sprite Player::getsprite(){

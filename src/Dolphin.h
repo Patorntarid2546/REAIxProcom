@@ -20,9 +20,10 @@ class Dolphin
 	sf::Texture img;
 	sf::Sprite img2;
 
-	bool isDead = false;
+
 
 public:
+	bool isDead = false;
 	double posx, posy;
 	double cenx = posx + 30, ceny = posy + 35;
 
