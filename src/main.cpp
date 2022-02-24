@@ -36,14 +36,14 @@ int main()
 	char mode = 's';
 	string my_ipp;
 
-	// Startgame B(false);
-	// B.start(window, my_ipp, mode);
+	Startgame B(false);
+	B.start(window, my_ipp, mode);
 
 
-	// Startgame a(true);
-	// a.start(window, my_ipp, mode);
+	Startgame a(true);
+	a.start(window, my_ipp, mode);
 
-
+    cout << " startto" << endl;
 
 	Network network;
 	network.connect(mode,"");

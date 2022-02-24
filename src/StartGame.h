@@ -137,8 +137,15 @@ void Startgame::start(sf::RenderWindow &window, string &ip, char &mode){
 	sf::Text Enter("Enter",amazingfont,120);
 	Enter.setPosition(1100,600);
 	Enter.setFillColor(sf::Color::Green);
-	Enter.setOutlineColor(sf::Color::Cyan);
+	Enter.setOutlineColor(sf::Color::Black);
 	Enter.setOutlineThickness(8.f);
+
+	sf::Text Enter1("Enter",amazingfont,120);
+	Enter1.setPosition(1100,600);
+	Enter1.setFillColor(sf::Color::Green);
+	Enter1.setOutlineColor(sf::Color::Black);
+	Enter1.setOutlineThickness(8.f);
+
 
 	sf::CircleShape point;
 	point.setRadius(10.f);
@@ -172,9 +179,10 @@ void Startgame::start(sf::RenderWindow &window, string &ip, char &mode){
 	bool once = true;
 	int num = 3;
 	sf::Sprite s1,s2;
-
+    bool e = false;
 	bool g = false;
 	int ggg = 0;
+
 
 	while (window.isOpen()){
 		score[10].setString(str);
@@ -193,6 +201,7 @@ void Startgame::start(sf::RenderWindow &window, string &ip, char &mode){
 				}
             	if(r1.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
 					sign11.setTexture(sign1);
+                    e = true;
 					g = false;
 					sc = false;
 					bk = false;
@@ -219,6 +228,11 @@ void Startgame::start(sf::RenderWindow &window, string &ip, char &mode){
 				if(c2.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
 					//ปิดป้าย
     				}
+
+				if(Enter1.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
+					bk = true;
+    			}
+
 				if(sc){
 					for(int i = 0; i < int(score.size()); i++){
 						if(score[i].getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
@@ -283,6 +297,7 @@ void Startgame::start(sf::RenderWindow &window, string &ip, char &mode){
 
 			window.draw(img2);
 			window.draw(sign11);
+			if(e)window.draw(Enter1);
 
 			if (g){
 				window.draw(g1);
