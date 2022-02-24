@@ -32,10 +32,14 @@ int main()
 	// กำหนดขนาด window ความละเอียด 1920*1080 แบบเต็มจอ
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive forest from atlantis"); //,
 
-	// Startgame a;
-	// a.start(window);
+	// Startgame B(false);
+	// B.start(window);
 
-	char mode = 's';
+
+	Startgame a(true);
+	a.start(window);
+
+	char mode = 'c';
 
 	Network network;
 	network.connect(mode,"");
@@ -249,7 +253,7 @@ int main()
 	dice.push_back(Dice(576.0,156.0,3));
 
 	//score ระบบคะแนน
-	/*sf::Font amazingfont;
+	sf::Font amazingfont;
     if(!amazingfont.loadFromFile("image\\ShortBaby-Mg2w.ttf"))
 	   printf("Load ttf fail");
 
@@ -270,7 +274,7 @@ int main()
 	exit.loadFromFile("image\\startgame2\\8.leave.png");
     sf::Sprite exiter;
 	exiter.setTexture(exit);
-	exiter.setPosition(1870,200);*/
+	exiter.setPosition(1870,200);
 
 	int num_sand = 0, num_solid = 0, num_mount = 0;
 	for(int i = 0; i < int(board.size()); i++){
@@ -407,6 +411,9 @@ int main()
 		for (int i = 0; i < int(serpent.size()); i++) serpent[i].Draw(window);
 
 		// แสดงเฟรมใหม่
+		window.draw(guider);
+		window.draw(Score);
+		window.draw(exiter);
 
 		window.display();
 	}
@@ -679,9 +686,9 @@ int main()
 		for (int i = 0; i < int(serpent.size()); i++) serpent[i].Draw(window);
 
 		// แสดงเฟรมใหม่
-		/*window.draw(guider);
+		window.draw(guider);
 		window.draw(Score);
-		window.draw(exiter);*/
+		window.draw(exiter);
 
 		if(phase_four_once){
 			dice[ranran].Draw(window);

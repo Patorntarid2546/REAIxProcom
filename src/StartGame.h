@@ -20,17 +20,32 @@ class Startgame{
 	sf::Sprite img2;
 	sf::Texture img3;
 	sf::Sprite img4;
-
-	string pic[4] = {"image\\startgame2\\7.second frame1remake.jpg","image\\startgame2\\7.second frame2remake.jpg","image\\startgame2\\7.second frame3remake.jpg",
-	"image\\startgame2\\7.second frame4remake.jpg"};
 	string poc[5] = {"image\\Guide\\9.guide1.png","image\\Guide\\9.guide2.png","image\\Guide\\9.guide3.png",
 	"image\\Guide\\9.guide4.png","image\\Guide\\9.guide5.png"};
-	string pmc[4] = {"image\\Startgame\\6.start game1.png","image\\Startgame\\6.start game2.png","image\\Startgame\\6.start game3.png",
-	"image\\Startgame\\6.start game4.png"};
+	vector<string> pic;
+	bool bk = false;
+	bool check;
 	public :
+		Startgame(bool);
 		int GetTimes();
 		void start(sf::RenderWindow &);
 };
+
+Startgame::Startgame(bool a){
+	check = a;
+	if(a){
+		string pcc[4] = {"image\\startgame2\\7.second frame1remake.jpg","image\\startgame2\\7.second frame2remake.jpg","image\\startgame2\\7.second frame3remake.jpg","image\\startgame2\\7.second frame4remake.jpg"};
+		for(int i = 0; i < 4; i++){
+			pic.push_back(pcc[i]);
+		}
+	}
+	else{
+		string pcc[4] = {"image\\Startgame\\6.start game1.png","image\\Startgame\\6.start game2.png","image\\Startgame\\6.start game3.png","image\\Startgame\\6.start game4.png"};
+		for(int i = 0; i < 4; i++){
+			pic.push_back(pcc[i]);
+		}
+	}
+}
 
 int Startgame::GetTimes(){
 	const auto now = std::chrono::system_clock::now();
@@ -41,6 +56,7 @@ int Startgame::GetTimes(){
 }
 
 void Startgame::start(sf::RenderWindow &window){
+
     //ตำแหนงปุ่มหน้าแรก
 	sf::CircleShape c1;
 	c1.setRadius(95.f);
@@ -99,6 +115,25 @@ void Startgame::start(sf::RenderWindow &window){
 	g3.setOutlineThickness(10.f);
 	g3.setPosition(1322.f,730.f);
 
+	sf::Font amazingfont;
+    if(!amazingfont.loadFromFile("image\\ShortBaby-Mg2w.ttf"))
+	   printf("Load ttf fail");
+
+	vector<sf::Text> score;
+	for(int i = 0; i < 5; i++){
+		score.push_back(sf::Text(to_string(i),amazingfont,80));
+		score[i].setPosition(500+(i+1)*100,500);
+		score[i].setFillColor(sf::Color::Black);
+		score[i].setOutlineColor(sf::Color::Cyan);
+		score[i].setOutlineThickness(8.f);
+	}
+	for(int i = 5; i < 10; i++){
+		score.push_back(sf::Text(to_string(i),amazingfont,80));
+		score[i].setPosition(500+(i-5+1)*100,600);
+		score[i].setFillColor(sf::Color::Black);
+		score[i].setOutlineColor(sf::Color::Cyan);
+		score[i].setOutlineThickness(8.f);
+	}
 
 	bool once = true;
 	int num = 3;
@@ -108,6 +143,7 @@ void Startgame::start(sf::RenderWindow &window){
 	int ggg = 0;
 
 	while (window.isOpen()){
+		if(bk) break;
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -117,7 +153,7 @@ void Startgame::start(sf::RenderWindow &window){
 			if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 				//Decktop game
 				if(c1.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
-					g = false;
+					bk = true;
 				}
             	if(r1.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
 					sign11.setTexture(sign1);
@@ -161,36 +197,61 @@ void Startgame::start(sf::RenderWindow &window){
 		}
 		window.clear();
 
-
-
-		window.draw(r1);
-		window.draw(r2);
-		window.draw(r3);
-		if (once){
-			img.loadFromFile(pic[num]);
-			img2.setTexture(img);
-			img2.setPosition(0,0);
-			once = false;
-		}
-		else{
-			if((GetTimes()%333) == 0){
+		if(check){
+			window.draw(r1);
+			window.draw(r2);
+			window.draw(r3);
+			if (once){
 				img.loadFromFile(pic[num]);
 				img2.setTexture(img);
 				img2.setPosition(0,0);
-				num++;
-				if(num >= 4) num = 0;
+				once = false;
 			}
-		}
-		window.draw(img2);
-		window.draw(sign11);
+			else{
+				if((GetTimes()%333) == 0){
+					img.loadFromFile(pic[num]);
+					img2.setTexture(img);
+					img2.setPosition(0,0);
+					num++;
+					if(num >= 4) num = 0;
+				}
+			}
+			window.draw(img2);
+			window.draw(sign11);
 
-		if (g){
-			window.draw(g1);
-			window.draw(g2);
-			window.draw(g3);
+			if (g){
+				window.draw(g1);
+				window.draw(g2);
+				window.draw(g3);
 
-			window.draw(img4);
+				window.draw(img4);
+			}
+			for(int i = 0; i < int(score.size()); i++){
+				window.draw(score[i]);
+			}
+
 		}
+		else{
+			window.draw(c1);
+			if (once){
+				img.loadFromFile(pic[num]);
+				img2.setTexture(img);
+				img2.setPosition(0,0);
+				once = false;
+			}
+			else{
+				if((GetTimes()%333) == 0){
+					img.loadFromFile(pic[num]);
+					img2.setTexture(img);
+					img2.setPosition(0,0);
+					num++;
+					if(num >= 4) num = 0;
+				}
+			}
+			window.draw(img2);
+		}
+
+
 		window.display();
 	}
 }
