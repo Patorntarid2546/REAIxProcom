@@ -24,7 +24,9 @@ class Startgame{
 	"image\\Guide\\9.guide4.png","image\\Guide\\9.guide5.png"};
 	vector<string> pic;
 	bool bk = false;
+	bool sc = false;
 	bool check;
+	string str = "";
 	public :
 		Startgame(bool);
 		int GetTimes();
@@ -135,6 +137,12 @@ void Startgame::start(sf::RenderWindow &window){
 		score[i].setOutlineThickness(8.f);
 	}
 
+	score.push_back(sf::Text(str,amazingfont,80));
+	score[10].setPosition(600,380);
+	score[10].setFillColor(sf::Color::Black);
+	score[10].setOutlineColor(sf::Color::Cyan);
+	score[10].setOutlineThickness(8.f);
+
 	bool once = true;
 	int num = 3;
 	sf::Sprite s1,s2;
@@ -143,6 +151,7 @@ void Startgame::start(sf::RenderWindow &window){
 	int ggg = 0;
 
 	while (window.isOpen()){
+		score[10].setString(str);
 		if(bk) break;
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -154,15 +163,18 @@ void Startgame::start(sf::RenderWindow &window){
 				//Decktop game
 				if(c1.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
 					bk = true;
+					sc = false;
 				}
             	if(r1.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
 					sign11.setTexture(sign1);
 					g = false;
+					sc = false;
 				}
 				//cliend
             	if(r2.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
 					g = false;
 					sign11.setTexture(sign2);
+					sc = true;
          		}
 
 				//guide3ed(sf::Mouse::Left)){
@@ -172,7 +184,17 @@ void Startgame::start(sf::RenderWindow &window){
 					img3.loadFromFile(poc[ggg]);
 		    		img4.setTexture(img3);
 		    		img4.setPosition(225,160);
+					sc = false;
 					break;
+				}
+
+				if(sc){
+					for(int i = 0; i < int(score.size()); i++){
+						if(score[i].getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
+							str+=to_string(i);
+							cout << str << endl;
+						}
+					}
 				}
 
 				if (g){
@@ -226,10 +248,11 @@ void Startgame::start(sf::RenderWindow &window){
 
 				window.draw(img4);
 			}
-			for(int i = 0; i < int(score.size()); i++){
-				window.draw(score[i]);
+			if(sc){
+				for(int i = 0; i < int(score.size()); i++){
+					window.draw(score[i]);
+				}
 			}
-
 		}
 		else{
 			window.draw(c1);
@@ -254,4 +277,5 @@ void Startgame::start(sf::RenderWindow &window){
 
 		window.display();
 	}
+	score[11].setString(str);
 }
