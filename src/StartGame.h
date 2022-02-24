@@ -128,6 +128,25 @@ void Startgame::start(sf::RenderWindow &window){
     if(!amazingfont.loadFromFile("image\\ShortBaby-Mg2w.ttf"))
 	   printf("Load ttf fail");
 
+	sf::Text delet("delete",amazingfont,80);
+	delet.setPosition(1200,500);
+	delet.setFillColor(sf::Color::Black);
+	delet.setOutlineColor(sf::Color::Cyan);
+    delet.setOutlineThickness(8.f);
+
+	sf::Text Enter("Enter",amazingfont,120);
+	Enter.setPosition(1100,600);
+	Enter.setFillColor(sf::Color::Green);
+	Enter.setOutlineColor(sf::Color::Cyan);
+	Enter.setOutlineThickness(8.f);
+
+	sf::CircleShape point;
+	point.setRadius(10.f);
+	point.setPosition(1130,570);
+	point.setFillColor(sf::Color::Black);
+	point.setOutlineColor(sf::Color::Cyan);
+	point.setOutlineThickness(8.f);
+
 	vector<sf::Text> score;
 	for(int i = 0; i < 5; i++){
 		score.push_back(sf::Text(to_string(i),amazingfont,80));
@@ -262,6 +281,10 @@ void Startgame::start(sf::RenderWindow &window){
 				for(int i = 0; i < int(score.size()); i++){
 					window.draw(score[i]);
 				}
+				window.draw(Enter);
+				window.draw(delet);
+				window.draw(point);
+
 			}
 		}
 		else{
