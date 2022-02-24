@@ -20,6 +20,7 @@
 #include "Dolphin.h"
 #include "Shark.h"
 #include "Serpent.h"
+#include "Dice.h"
 
 int main()
 {
@@ -242,6 +243,11 @@ int main()
 		(board.at(111)).haveser++;
 	}
 
+	vector<Dice> dice;
+	dice.push_back(Dice(576.0,156.0,1));
+	dice.push_back(Dice(576.0,156.0,2));
+	dice.push_back(Dice(576.0,156.0,3));
+
 	//score ระบบคะแนน
 	/*sf::Font amazingfont;
     if(!amazingfont.loadFromFile("image\\ShortBaby-Mg2w.ttf"))
@@ -412,9 +418,13 @@ int main()
 	int Bwhich;
 	// bool phase_one = false;
 	bool phase_two = false;
-	bool phase_three = true;
+	bool phase_three = false;
+	bool phase_four = true;
+	// bool phase_four_once = true;
 
 	int hav = 0;
+
+	int ranran = rand()%3;
 
 	cout << "Start" << endl;
 
@@ -535,6 +545,8 @@ int main()
 											network.senttext(to_string(i));
 											network.senttext("sand");
 											network.senttext("pass");
+											phase_three = false;
+											phase_four = true;
 										}
 									}
 									else if(num_solid > 0){
@@ -547,6 +559,8 @@ int main()
 											network.senttext(to_string(i));
 											network.senttext("solid");
 											network.senttext("pass");
+											phase_three = false;
+											phase_four = true;
 										}
 									}
 									else if(num_mount > 0){
@@ -559,6 +573,8 @@ int main()
 											network.senttext(to_string(i));
 											network.senttext("mount");
 											network.senttext("pass");
+											phase_three = false;
+											phase_four = true;
 										}
 									}
 								}
@@ -566,6 +582,9 @@ int main()
 						}
 					}
 				}
+				// else if(phase_four){
+
+				// }
 			}
 		}
 		else{
@@ -631,6 +650,12 @@ int main()
 		/*window.draw(guider);
 		window.draw(Score);
 		window.draw(exiter);*/
+
+		if(phase_four){
+			dice[ranran].Draw(window);
+		}
+
+
 		window.display();
 
 	}

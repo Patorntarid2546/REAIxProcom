@@ -15,17 +15,15 @@
 
 using namespace std;
 
-class  Serpent{
+class Dice{
 	sf::Texture img;
 	sf::Sprite img2;
 
-	bool isDead = false;
-
 	public:
 		double posx, posy;
-		double cenx = posx+30, ceny = posy+35;
+		int num;
 
-		Serpent(double, double);
+		Dice(double, double, int);
 		void Texture_Img();
 		void Sprite_Img();
 		void Draw(sf::RenderWindow &window);
