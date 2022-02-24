@@ -125,7 +125,7 @@ void Startgame::start(sf::RenderWindow &window){
 	g3.setPosition(1322.f,730.f);
 
 	sf::Font amazingfont;
-    if(!amazingfont.loadFromFile("image\\ShortBaby-Mg2w.ttf"))
+    if(!amazingfont.loadFromFile("image\\Pixellettersfull-BnJ5.ttf"))
 	   printf("Load ttf fail");
 
 	sf::Text delet("delete",amazingfont,80);
@@ -142,10 +142,10 @@ void Startgame::start(sf::RenderWindow &window){
 
 	sf::CircleShape point;
 	point.setRadius(10.f);
-	point.setPosition(1130,570);
+	point.setPosition(1110,570);
 	point.setFillColor(sf::Color::Black);
 	point.setOutlineColor(sf::Color::Cyan);
-	point.setOutlineThickness(8.f);
+	point.setOutlineThickness(15.f);
 
 	vector<sf::Text> score;
 	for(int i = 0; i < 5; i++){
@@ -163,11 +163,11 @@ void Startgame::start(sf::RenderWindow &window){
 		score[i].setOutlineThickness(8.f);
 	}
 
-	score.push_back(sf::Text(str,amazingfont,50));
+	score.push_back(sf::Text(str,amazingfont,40));
 	score[10].setPosition(840,400);
 	score[10].setFillColor(sf::Color::Black);
 	score[10].setOutlineColor(sf::Color::Cyan);
-	score[10].setOutlineThickness(8.f);
+	score[10].setOutlineThickness(2.f);
 
 	bool once = true;
 	int num = 3;
