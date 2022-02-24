@@ -33,15 +33,15 @@ int main()
 	// กำหนดขนาด window ความละเอียด 1920*1080 แบบเต็มจอ
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive forest from atlantis"); //,
 
-	char mode = 'c';
+	char mode = 's';
 	string my_ipp;
 
-	Startgame B(false);
-	B.start(window, my_ipp, mode);
+	// Startgame B(false);
+	// B.start(window, my_ipp, mode);
 
 
-	Startgame a(true);
-	a.start(window, my_ipp, mode);
+	// Startgame a(true);
+	// a.start(window, my_ipp, mode);
 
 
 
@@ -580,6 +580,7 @@ int main()
 											network.senttext("pass");
 											phase_three = false;
 											phase_four = true;
+											phase_four_once = true;
 											ranran = rand()%3;
 										}
 									}
@@ -595,6 +596,7 @@ int main()
 											network.senttext("pass");
 											phase_three = false;
 											phase_four = true;
+											phase_four_once = true;
 											ranran = rand()%3;
 										}
 									}
@@ -610,6 +612,7 @@ int main()
 											network.senttext("pass");
 											phase_three = false;
 											phase_four = true;
+											phase_four_once = true;
 											ranran = rand()%3;
 										}
 									}
@@ -637,6 +640,15 @@ int main()
 									}
 									else{
 										isclick = false;
+										turn = false;
+										phase_four = false;
+										phase_four_once = false;
+										phase_two = true;
+										isclick = false;
+										Pwhich = 0;
+										check = 0;
+										bk = false;
+										network.senttext("pass");
 									}
 								}
 							}
