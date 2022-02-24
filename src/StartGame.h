@@ -223,6 +223,15 @@ void Startgame::start(sf::RenderWindow &window){
 							cout << str << endl;
 						}
 					}
+					if(Enter.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
+						cout << "connect " << endl;
+					}
+					if(delet.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
+						str.erase(str.size() - 1);
+					}
+					if(point.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
+						str+=".";
+					}
 				}
 
 				if (g){
