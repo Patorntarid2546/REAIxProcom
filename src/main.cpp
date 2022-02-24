@@ -52,10 +52,11 @@ int main()
 	bg.setPosition(0,0);
 
 	sf::RectangleShape frame;
-	frame.setPosition(1400,150);
+	frame.setSize(sf::Vector2f(305.f,305.f));
+	frame.setPosition(1550,140);
 	frame.setFillColor(sf::Color::White);
 	frame.setOutlineColor(sf::Color::Black);
-	frame.setOutlineThickness(10.f);
+	frame.setOutlineThickness(5.f);
 
 	// ขนาด block 6 เหลี่ยม
 	int block_h = 96, block_w = 84, set_h = -10, set_w = 600;
