@@ -247,7 +247,7 @@ void Startgame::start(sf::RenderWindow &window){
 					if(num >= 4) num = 0;
 				}
 			}
-			window.draw(c2);
+
 			window.draw(img2);
 			window.draw(sign11);
 
