@@ -5,9 +5,9 @@ Dice::Dice(double a, double b, int c){
 }
 
 void Dice::Texture_Img(){
-	if(num == 1) img.loadFromFile("image\\Dice\\diceface1.jpg");
-	else if(num == 2) img.loadFromFile("image\\Dice\\diceface2.jpg");
-	else if(num == 3) img.loadFromFile("image\\Dice\\diceface3.jpg");
+	if(num == 1) img.loadFromFile("image\\Dice\\5.dice face11.png");
+	else if(num == 2) img.loadFromFile("image\\Dice\\5.dice face12.png");
+	else if(num == 3) img.loadFromFile("image\\Dice\\5.dice face13.png");
 }
 
 void Dice::Sprite_Img(){
