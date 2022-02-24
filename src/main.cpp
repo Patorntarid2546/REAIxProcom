@@ -266,6 +266,15 @@ int main()
 	exiter.setTexture(exit);
 	exiter.setPosition(1870,200);*/
 
+	int num_sand = 0, num_solid = 0, num_mount = 0;
+	for(int i = 0; i < int(board.size()); i++){
+		if(board[i].GetTile() == "sand") num_sand++;
+		else if(board[i].GetTile() == "solid") num_solid++;
+		else if(board[i].GetTile() == "mount") num_mount++;
+	}
+
+	cout << num_sand << " " << num_solid << " " << num_mount << endl;
+
 	bool turn;
 	bool isclick = false;
 	int Pwhich = 0;
@@ -407,8 +416,6 @@ int main()
 
 	int hav = 0;
 
-	bool havesand = false, havesolid = false, havemount = false;
-
 	cout << "Start" << endl;
 
 	//ห้ามลบ เอาไว้เคลียร์แคช
@@ -514,67 +521,43 @@ int main()
 				}
 				else if(phase_three){
 					if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-						for(int j = 0; int(board.size()); j++){
-							if(board[j].GetTile() == "sand"){
-								if(board[j].alive){
-									cout << j << endl;
-									havesand = true;
-									break;
-								}
-								else havesand = false;
-							}
-						}
-						for(int j = 0; int(board.size()); j++){
-							if(board[j].GetTile() == "solid"){
-								if(board[j].alive){
-									havesolid = true;
-									break;
-								}
-								else havesolid = false;
-							}
-						}
-						for(int j = 0; int(board.size()); j++){
-							if(board[j].GetTile() == "mount"){
-								if(board[j].alive){
-									havemount = true;
-									break;
-								}
-								else havemount = false;
-							}
-						}
-						cout << havesand << endl;
+
 						for(int i = 0; i < int(board.size()); i++){
 							if(board.at(i).getsprite().getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
 								if(board[i].GetType() == "island"){
-									if(havesand){
-										cout << "passway" << endl;
+									if(num_sand > 0){
 										if(board[i].GetTile() == "sand"){
 											board[i].alive = false;
+											num_sand--;
 											board[i].Delete();
 											turn = false;
 											network.senttext("delete");
 											network.senttext(to_string(i));
+											network.senttext("sand");
 											network.senttext("pass");
 										}
 									}
-									else if(havesolid){
-
+									else if(num_solid > 0){
 										if(board[i].GetTile() == "solid"){
 											board[i].alive = false;
+											num_solid--;
 											board[i].Delete();
 											turn = false;
 											network.senttext("delete");
 											network.senttext(to_string(i));
+											network.senttext("solid");
 											network.senttext("pass");
 										}
 									}
-									else if(havemount){
+									else if(num_mount > 0){
 										if(board[i].GetTile() == "mount"){
 											board[i].alive = false;
+											num_mount--;
 											board[i].Delete();
 											turn = false;
 											network.senttext("delete");
 											network.senttext(to_string(i));
+											network.senttext("mount");
 											network.senttext("pass");
 										}
 									}
@@ -586,34 +569,6 @@ int main()
 			}
 		}
 		else{
-						for(int j = 0; int(board.size()); j++){
-							if(board[j].GetTile() == "sand"){
-								if(board[j].alive){
-									cout << j << endl;
-									havesand = true;
-									break;
-								}
-								else havesand = false;
-							}
-						}
-						for(int j = 0; int(board.size()); j++){
-							if(board[j].GetTile() == "solid"){
-								if(board[j].alive){
-									havesolid = true;
-									break;
-								}
-								else havesolid = false;
-							}
-						}
-						for(int j = 0; int(board.size()); j++){
-							if(board[j].GetTile() == "mount"){
-								if(board[j].alive){
-									havemount = true;
-									break;
-								}
-								else havemount = false;
-							}
-						}
 			string text = network.recievedtext();
 			if(text == "pass"){
 				turn = true;
@@ -642,6 +597,10 @@ int main()
 				int po = stoi(network.recievedtext());
 				board[po].alive = false;
 				board[po].Delete();
+				text = network.recievedtext();
+				if(text == "sand") num_sand--;
+				else if(text == "solid") num_solid--;
+				else if(text == "mount") num_mount--;
 			}
 		}
 
