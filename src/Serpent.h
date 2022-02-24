@@ -23,10 +23,13 @@ class  Serpent{
 
 	public:
 		double posx, posy;
-		double cenx = posx+30, ceny = posy+35;
+		double cenx ,ceny;
 
 		Serpent(double, double);
 		void Texture_Img();
 		void Sprite_Img();
 		void Draw(sf::RenderWindow &window);
+		sf::Sprite getsprite();
+		vector<double> getcen();
+		void Changepos(double, double);
 };

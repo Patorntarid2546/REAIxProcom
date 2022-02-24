@@ -420,7 +420,7 @@ int main()
 	bool phase_two = false;
 	bool phase_three = false;
 	bool phase_four = true;
-	// bool phase_four_once = true;
+	bool phase_four_once = true;
 
 	int hav = 0;
 
@@ -522,10 +522,10 @@ int main()
 							float x = event.mouseMove.x;
 							float y = event.mouseMove.y;
 							Splayer[Pwhich].Changepos(x,y);
-							network.senttext("con");
-							network.senttext(to_string(Pwhich));
-							network.senttext(to_string(x));
-							network.senttext(to_string(y));
+							// network.senttext("con");
+							// network.senttext(to_string(Pwhich));
+							// network.senttext(to_string(x));
+							// network.senttext(to_string(y));
 						}
 					}
 				}
@@ -547,6 +547,7 @@ int main()
 											network.senttext("pass");
 											phase_three = false;
 											phase_four = true;
+											ranran = rand()%3;
 										}
 									}
 									else if(num_solid > 0){
@@ -561,6 +562,7 @@ int main()
 											network.senttext("pass");
 											phase_three = false;
 											phase_four = true;
+											ranran = rand()%3;
 										}
 									}
 									else if(num_mount > 0){
@@ -575,16 +577,46 @@ int main()
 											network.senttext("pass");
 											phase_three = false;
 											phase_four = true;
+											ranran = rand()%3;
 										}
 									}
+									isclick = false;
 								}
 							}
 						}
 					}
 				}
-				// else if(phase_four){
-
-				// }
+				else if(phase_four){
+					if(ranran == 0){
+						if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+							for(int i = 0; i < int(serpent.size()) ;i++){
+								if(serpent.at(i).getsprite().getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
+									if(isclick == false){
+										Pwhich = i;
+										for(int j = 0; j < int(board.size()); j++){
+											if((board.at(j).getsprite().getGlobalBounds()).contains(serpent.at(i).getcen().at(0), serpent.at(i).getcen().at(1))){
+												Bwhich = j;
+												isclick = true;
+												phase_four_once = false;
+												break;
+											}
+										}
+									}
+									else{
+										isclick = false;
+									}
+								}
+							}
+						}
+						if (event.type == sf::Event::MouseMoved){
+							if(isclick){
+								float x = event.mouseMove.x;
+								float y = event.mouseMove.y;
+								serpent[Pwhich].Changepos(x,y);
+							}
+						}
+					}
+				}
 			}
 		}
 		else{
@@ -651,7 +683,7 @@ int main()
 		window.draw(Score);
 		window.draw(exiter);*/
 
-		if(phase_four){
+		if(phase_four_once){
 			dice[ranran].Draw(window);
 		}
 
