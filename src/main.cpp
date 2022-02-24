@@ -33,14 +33,17 @@ int main()
 	// กำหนดขนาด window ความละเอียด 1920*1080 แบบเต็มจอ
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "REAIxProcom : Survive forest from atlantis"); //,
 
+	char mode = 'c';
+	string my_ipp;
+
 	Startgame B(false);
-	B.start(window);
+	B.start(window, my_ipp, mode);
 
 
 	Startgame a(true);
-	a.start(window);
+	a.start(window, my_ipp, mode);
 
-	char mode = 'c';
+
 
 	Network network;
 	network.connect(mode,"");

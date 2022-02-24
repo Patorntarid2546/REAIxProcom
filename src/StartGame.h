@@ -30,7 +30,7 @@ class Startgame{
 	public :
 		Startgame(bool);
 		int GetTimes();
-		void start(sf::RenderWindow &);
+		void start(sf::RenderWindow &, string &, char &);
 };
 
 Startgame::Startgame(bool a){
@@ -57,7 +57,7 @@ int Startgame::GetTimes(){
   	return stoi(nowSs.str());
 }
 
-void Startgame::start(sf::RenderWindow &window){
+void Startgame::start(sf::RenderWindow &window, string &ip, char &mode){
 
     //ตำแหนงปุ่มหน้าแรก
 	sf::CircleShape c1;
@@ -195,6 +195,9 @@ void Startgame::start(sf::RenderWindow &window){
 					sign11.setTexture(sign1);
 					g = false;
 					sc = false;
+					bk = false;
+					mode = 's';
+					ip = "";
 				}
 				//cliend
             	if(r2.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
@@ -224,7 +227,9 @@ void Startgame::start(sf::RenderWindow &window){
 						}
 					}
 					if(Enter.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
-						cout << "connect " << endl;
+						bk = true;
+						mode = 'c';
+						ip = str;
 					}
 					if(delet.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
 						str.erase(str.size() - 1);
