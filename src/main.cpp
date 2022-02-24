@@ -53,7 +53,7 @@ int main()
 
 	sf::RectangleShape frame;
 	frame.setSize(sf::Vector2f(305.f,305.f));
-	frame.setPosition(1550,140);
+	frame.setPosition(1472,129);
 	frame.setFillColor(sf::Color::White);
 	frame.setOutlineColor(sf::Color::Black);
 	frame.setOutlineThickness(5.f);
