@@ -51,6 +51,12 @@ int main()
 	bg.setTexture(bg1);
 	bg.setPosition(0,0);
 
+	sf::RectangleShape frame;
+	frame.setPosition(1400,150);
+	frame.setFillColor(sf::Color::White);
+	frame.setOutlineColor(sf::Color::Black);
+	frame.setOutlineThickness(10.f);
+
 	// ขนาด block 6 เหลี่ยม
 	int block_h = 96, block_w = 84, set_h = -10, set_w = 600;
 
@@ -426,6 +432,7 @@ int main()
 		for (int i = 0; i < int(serpent.size()); i++) serpent[i].Draw(window);
 
 		// แสดงเฟรมใหม่
+        window.draw(frame);
 		window.draw(guider);
 		window.draw(Score);
 		window.draw(exiter);
@@ -701,6 +708,7 @@ int main()
 		for (int i = 0; i < int(serpent.size()); i++) serpent[i].Draw(window);
 
 		// แสดงเฟรมใหม่
+		window.draw(frame);
 		window.draw(guider);
 		window.draw(Score);
 		window.draw(exiter);
