@@ -40,7 +40,7 @@ int main()
 	//Startgame a(true);
 	//a.start(window);
 
-	char mode = 'c';
+	char mode = 's';
 
 	Network network;
 	network.connect(mode,"");

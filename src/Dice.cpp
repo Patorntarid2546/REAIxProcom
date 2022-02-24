@@ -12,7 +12,7 @@ void Dice::Texture_Img(){
 
 void Dice::Sprite_Img(){
 	img2.setTexture(img);
-	img2.setPosition(posx,posy);
+	img2.setPosition(0,0);
 }
 
 void Dice::Draw(sf::RenderWindow &window){
