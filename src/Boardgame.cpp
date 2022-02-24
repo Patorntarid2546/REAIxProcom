@@ -8,11 +8,11 @@ void Boardgame::Texture_Img(){
 	string ref;
 	if(type == "water"){
 		ref = "image\\hexa\\4.1seawave.png";
-		tile = "water";
+		tile = "";
 	}
 	else if(type == "forest"){
 		ref = "image\\hexa\\4.1forest.png";
-		tile = "forest";
+		tile = "";
 	}
 	else if(type == "island"){
 		if(tile == "sand"){
@@ -59,6 +59,8 @@ void Boardgame::ChangeType(string z = ""){
 	}
 }
 
+
+
 vector<int> Boardgame::getqrs(){
 	vector<int> a;
 	a.push_back(q); a.push_back(r); a.push_back(s);
@@ -102,4 +104,9 @@ int Boardgame::operator+(const Boardgame &B){
 	int rr = abs(r - B.r);
 	int ss = abs(s - B.s);
 	return (qq+rr+ss)/2;
+}
+
+void Boardgame::Delete(){
+	tile = "";
+	type = "water";
 }

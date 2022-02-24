@@ -274,7 +274,6 @@ int main()
 	int check = 0;
 	bool bk = false;
 
-
 	while (window.isOpen()){
 		sf::Event event;
 		if(bk){
@@ -354,7 +353,7 @@ int main()
 						board[i].index_player = po;
 						Cplayer[po].index_board = i;
 						check++;
-						if(check == 2){
+						if(check == 1){
 							network.senttext("break");
 							bk = true;
 						}
@@ -403,15 +402,17 @@ int main()
 	Pwhich = 0;
 	int Bwhich;
 	// bool phase_one = false;
-	bool phase_two = true;
-	// bool phase_three = false;
+	bool phase_two = false;
+	bool phase_three = true;
 
 	int hav = 0;
+
+	bool havesand = false, havesolid = false, havemount = false;
 
 	cout << "Start" << endl;
 
 	//ห้ามลบ เอาไว้เคลียร์แคช
-	cout << network.recievedtext() << endl;
+	if(mode == 's') cout << network.recievedtext() << endl;
 
 	while (window.isOpen()){
 		// cout << phase_three << endl;
@@ -458,15 +459,13 @@ int main()
 											if(hav < 6){
 												if(distance <= 3){
 													isclick = false;
-													// phase_two = false;
-													// phase_three = true;
+													phase_two = false;
+													phase_three = true;
 													network.sentpos(Pwhich, Splayer.at(Pwhich).posx, Splayer.at(Pwhich).posy);
 													cout << "sent" << endl;
 													board[i].haveplayer++;
 													board[i].index_player = Pwhich;
 													Splayer[Pwhich].index_board = i;
-													network.senttext("pass");
-													turn = false;
 													break;
 												}
 											}
@@ -474,15 +473,13 @@ int main()
 										else{
 											if(distance <= 3){
 												isclick = false;
-												// phase_two = false;
-												// phase_three = true;
+												phase_two = false;
+												phase_three = true;
 												network.sentpos(Pwhich, Splayer.at(Pwhich).posx, Splayer.at(Pwhich).posy);
 												cout << "sent" << endl;
 												board[i].haveplayer++;
 												board[i].index_player = Pwhich;
 												Splayer[Pwhich].index_board = i;
-												network.senttext("pass");
-												turn = false;
 												}
 										}
 										break;
@@ -490,14 +487,12 @@ int main()
 									else{
 										if(distance <= 1){
 											isclick = false;
-											// phase_two = false;
-											// phase_three = true;
+											phase_two = false;
+											phase_three = true;
 											network.sentpos(Pwhich, Splayer.at(Pwhich).posx, Splayer.at(Pwhich).posy);
 											board[i].haveplayer++;
 											board[i].index_player = Pwhich;
 											Splayer[Pwhich].index_board = i;
-											network.senttext("pass");
-											turn = false;
 											break;
 										}
 									}
@@ -514,6 +509,77 @@ int main()
 							network.senttext(to_string(Pwhich));
 							network.senttext(to_string(x));
 							network.senttext(to_string(y));
+						}
+					}
+				}
+				else if(phase_three){
+					if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+						for(int j = 0; int(board.size()); j++){
+							cout << j << endl;
+							if(board[j].GetTile() == "sand"){
+								cout << "1" << endl;
+								if(board[j].alive){
+									cout << "2" << endl;
+									havesand = true;
+									break;
+								}
+								else havesand = false;
+							}
+						}
+						for(int j = 0; int(board.size()); j++){
+							if(board[j].GetTile() == "solid"){
+								if(board[j].alive){
+									havesolid = true;
+									break;
+								}
+								else havesolid = false;
+							}
+						}
+						for(int j = 0; int(board.size()); j++){
+							if(board[j].GetTile() == "mount"){
+								if(board[j].alive){
+									havemount = true;
+									break;
+								}
+								else havemount = false;
+							}
+						}
+						for(int i = 0; i < int(board.size()); i++){
+							if(board.at(i).getsprite().getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
+								if(board[i].GetType() == "island"){
+									if(havesand){
+										if(board[i].GetTile() == "sand"){
+											board[i].alive = false;
+											board[i].Delete();
+											turn = false;
+											network.senttext("delete");
+											network.senttext(to_string(i));
+											network.senttext("pass");
+										}
+									}
+									else if(havesolid){
+										cout << "passway" << endl;
+										if(board[i].GetTile() == "solid"){
+											board[i].alive = false;
+											board[i].Delete();
+											turn = false;
+											network.senttext("delete");
+											network.senttext(to_string(i));
+											network.senttext("pass");
+										}
+									}
+									else if(havemount){
+										if(board[i].GetTile() == "mount"){
+											board[i].alive = false;
+											board[i].Delete();
+											turn = false;
+											network.senttext("delete");
+											network.senttext(to_string(i));
+											network.senttext("pass");
+										}
+									}
+								}
+							}
 						}
 					}
 				}
@@ -543,6 +609,11 @@ int main()
 				double x = stof(network.recievedtext());
 				double y = stof(network.recievedtext());
 				Cplayer[po].Changepos(x,y);
+			}
+			else if(text == "delete"){
+				int po = stoi(network.recievedtext());
+				board[po].alive = false;
+				board[po].Delete();
 			}
 		}
 

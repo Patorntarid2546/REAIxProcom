@@ -45,7 +45,10 @@ class Boardgame{
 		string GetTile();
 		string GetEffect();
 		void ChangeEffect(string);
+		void Delete();
 		int operator+(const Boardgame &);
+
+		bool alive = true;
 };
 
 
