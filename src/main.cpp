@@ -515,11 +515,9 @@ int main()
 				else if(phase_three){
 					if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 						for(int j = 0; int(board.size()); j++){
-							cout << j << endl;
 							if(board[j].GetTile() == "sand"){
-								cout << "1" << endl;
 								if(board[j].alive){
-									cout << "2" << endl;
+									cout << j << endl;
 									havesand = true;
 									break;
 								}
@@ -544,10 +542,12 @@ int main()
 								else havemount = false;
 							}
 						}
+						cout << havesand << endl;
 						for(int i = 0; i < int(board.size()); i++){
 							if(board.at(i).getsprite().getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
 								if(board[i].GetType() == "island"){
 									if(havesand){
+										cout << "passway" << endl;
 										if(board[i].GetTile() == "sand"){
 											board[i].alive = false;
 											board[i].Delete();
@@ -558,7 +558,7 @@ int main()
 										}
 									}
 									else if(havesolid){
-										cout << "passway" << endl;
+
 										if(board[i].GetTile() == "solid"){
 											board[i].alive = false;
 											board[i].Delete();
@@ -586,6 +586,34 @@ int main()
 			}
 		}
 		else{
+						for(int j = 0; int(board.size()); j++){
+							if(board[j].GetTile() == "sand"){
+								if(board[j].alive){
+									cout << j << endl;
+									havesand = true;
+									break;
+								}
+								else havesand = false;
+							}
+						}
+						for(int j = 0; int(board.size()); j++){
+							if(board[j].GetTile() == "solid"){
+								if(board[j].alive){
+									havesolid = true;
+									break;
+								}
+								else havesolid = false;
+							}
+						}
+						for(int j = 0; int(board.size()); j++){
+							if(board[j].GetTile() == "mount"){
+								if(board[j].alive){
+									havemount = true;
+									break;
+								}
+								else havemount = false;
+							}
+						}
 			string text = network.recievedtext();
 			if(text == "pass"){
 				turn = true;
