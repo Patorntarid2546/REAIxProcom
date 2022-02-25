@@ -20,8 +20,8 @@ class Startgame{
 	sf::Sprite img2;
 	sf::Texture img3;
 	sf::Sprite img4;
-	string poc[8] = {"image\\Guide\\9.guide6.png","image\\Guide\\9.guide1.png","image\\Guide\\9.guide1.png","image\\Guide\\9.guide2.png","image\\Guide\\9.guide3.png",
-	"image\\Guide\\9.guide4.png","image\\Guide\\9.guide5.png","image\\Guide\\9.guide7.png"};
+	string poc[10] = {"image\\Guide\\9.guide6.png","image\\Guide\\9.guide1.png","image\\Guide\\9.guide1.png","image\\Guide\\9.guide2.png","image\\Guide\\9.guide3.png",
+	"image\\Guide\\9.guide4.png","image\\Guide\\9.guide5.png","image\\Guide\\9.guide7.png","image\\Guide\\9.guide8.png","image\\Guide\\9.guide9.png"};
 	vector<string> pic;
 	bool bk = false;
 	bool sc = false;
@@ -265,8 +265,8 @@ void Startgame::start(sf::RenderWindow &window, string &ip, char &mode){
 					}
 				 	if(g3.getGlobalBounds().contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
 						ggg++;
-						if(ggg > 7){
-					   		ggg = 7;
+						if(ggg > 9){
+					   		ggg = 9;
 				    	}
          			}
 					img3.loadFromFile(poc[ggg]);
