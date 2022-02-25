@@ -23,6 +23,7 @@
 #include "Dice.h"
 #include "Checkscore.h"
 #include "Kill.h"
+#include "Cardevent.h"
 
 int main()
 {
@@ -397,7 +398,7 @@ int main()
 						board[i].index_player = po;
 						Cplayer[po].index_board = i;
 						check++;
-						if(check == 1){
+						if(check == 3){
 							network.senttext("break");
 							bk = true;
 						}
@@ -464,13 +465,14 @@ int main()
 	//ห้ามลบ เอาไว้เคลียร์แคช
 	if(mode == 's') cout << network.recievedtext() << endl;
 
-	// Kill kill;
+	Kill kill;
+	Cardevent card;
 
 	while (window.isOpen()){
 		// cout << phase_three << endl;
 		sf::Event event;
 
-		// kill.CheckKill(board, shark, dolphin, Splayer, Cplayer, serpent);
+		kill.CheckKill(board,shark,dolphin,Splayer,Cplayer,serpent);
 
 		if(turn){
 			// ลูป Event
@@ -582,6 +584,7 @@ int main()
 											phase_three = false;
 											phase_four = true;
 											ranran = rand()%3;
+											card.Start(true, dolphin, shark, board,network);
 										}
 									}
 									else if(num_solid > 0){
@@ -595,6 +598,7 @@ int main()
 											phase_three = false;
 											phase_four = true;
 											ranran = rand()%3;
+											card.Start(true, dolphin, shark, board, network);
 										}
 									}
 									else if(num_mount > 0){
@@ -608,6 +612,7 @@ int main()
 											phase_three = false;
 											phase_four = true;
 											ranran = rand()%3;
+											card.Start(true, dolphin, shark, board, network);
 										}
 									}
 									isclick = false;
@@ -635,26 +640,24 @@ int main()
 									else{
 										for(int i = 0; i < int(board.size()); i++){
 											if((board.at(i).getsprite().getGlobalBounds()).contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
-												if(board[Bwhich] + board[i] <= 1){
+												if(board[Bwhich] + board[i] <= 5){
 													double x = sf::Mouse::getPosition(window).x;
 													double y = sf::Mouse::getPosition(window).y;
-													if((board.at(i).getsprite().getGlobalBounds()).contains(x,y)){
-														board[i].haveser++;
-														network.senttext("serpos");
-														network.senttext(to_string(Pwhich));
-														network.senttext(to_string(x));
-														network.senttext(to_string(y));
-														isclick = false;
-														turn = false;
-														phase_four = false;
-														phase_two = true;
-														isclick = false;
-														Pwhich = 0;
-														check = 0;
-														bk = false;
-														network.senttext("pass");
-														break;
-													}
+													board[i].haveser++;
+													network.senttext("serpos");
+													network.senttext(to_string(Pwhich));
+													network.senttext(to_string(x));
+													network.senttext(to_string(y));
+													isclick = false;
+													turn = false;
+													phase_four = false;
+													phase_two = true;
+													isclick = false;
+													Pwhich = 0;
+													check = 0;
+													bk = false;
+													network.senttext("pass");
+													break;
 												}
 											}
 										}
@@ -688,7 +691,7 @@ int main()
 									else{
 										for(int i = 0; i < int(board.size()); i++){
 											if((board.at(i).getsprite().getGlobalBounds()).contains(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y)){
-												if((board[i]+ board[Bwhich] <= 2) && (board[i].GetType() == "water")){
+												if((board[i]+ board[Bwhich] <= 5) && (board[i].GetType() == "water")){
 													double x = sf::Mouse::getPosition(window).x;
 													double y = sf::Mouse::getPosition(window).y;
 													if((board.at(i).getsprite().getGlobalBounds()).contains(x,y)){
@@ -743,7 +746,7 @@ int main()
 											double x = sf::Mouse::getPosition(window).x;
 											double y = sf::Mouse::getPosition(window).y;
 											if((board.at(i).getsprite().getGlobalBounds()).contains(x,y)){
-												if((board[i] + board[Bwhich] <=3 ) && (board[i].GetType() == "water")){
+												if((board[i] + board[Bwhich] <= 5) && (board[i].GetType() == "water")){
 													board[i].havedol++;
 													cout << "dolpos" << endl;
 													network.senttext("dolpos");
@@ -835,6 +838,18 @@ int main()
 				int y = stof(network.recievedtext());
 				shark[P].Changepos(x,y);
 				shark[P].Draw(window);
+			}
+			if(text == "PlusDol"){
+				dolphin.push_back(Dolphin(board[stoi(network.recievedtext())].getcen().at(0), board[stoi(network.recievedtext())].getcen().at(0)));
+			}
+			if(text == "PlusShark"){
+				shark.push_back(Shark(board[stoi(network.recievedtext())].getcen().at(0), board[stoi(network.recievedtext())].getcen().at(0)));
+			}
+			if(text == "DeleteDol"){
+				dolphin.erase(dolphin.begin()+stoi(network.recievedtext()));
+			}
+			if(text == "DeleteShark"){
+				shark.erase(shark.begin()+stoi(network.recievedtext()));
 			}
 		}
 

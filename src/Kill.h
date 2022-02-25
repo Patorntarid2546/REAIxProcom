@@ -20,6 +20,7 @@
 #include "Serpent.h"
 
 class Kill{
+	bool a = false;
 	public:
 		void CheckKill(vector<Boardgame> &, vector<Shark> &, vector<Dolphin> &, vector<Player> &, vector<Player> &, vector<Serpent> &);
 };
