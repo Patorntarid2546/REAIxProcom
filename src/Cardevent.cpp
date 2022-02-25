@@ -103,15 +103,30 @@ void Cardevent::END(sf::RenderWindow& window)
 	if (!amazingfont1.loadFromFile("image\\ShortBaby-Mg2w.ttf"))
 		printf("Load ttf fail");
 
-	sf::Text Player1("Player1 WIN", amazingfont1, 150);
-	Player1.setPosition(590, 800);
-	Player1.setFillColor(sf::Color::Black);
-	Player1.setOutlineColor(sf::Color::White);
-	Player1.setOutlineThickness(5.f);
+	if (C > S)
+	{
+		sf::Text Player1("Player1 WIN", amazingfont1, 150);
+		Player1.setPosition(590, 800);
+		Player1.setFillColor(sf::Color::Black);
+		Player1.setOutlineColor(sf::Color::White);
+		Player1.setOutlineThickness(5.f);
+	}
 
-	sf::Text Player2("Player2 WIN", amazingfont1, 150);
-	Player2.setPosition(590, 800);
-	Player2.setFillColor(sf::Color::Black);
-	Player2.setOutlineColor(sf::Color::White);
-	Player2.setOutlineThickness(5.f);
+	if (S > C)
+	{
+		sf::Text Player2("Player2 WIN", amazingfont1, 150);
+		Player2.setPosition(590, 800);
+		Player2.setFillColor(sf::Color::Black);
+		Player2.setOutlineColor(sf::Color::White);
+		Player2.setOutlineThickness(5.f);
+	}
+
+	if (S == C)
+	{
+		sf::Text Player2("DRAW", amazingfont1, 150);
+		Player2.setPosition(590, 800);
+		Player2.setFillColor(sf::Color::Black);
+		Player2.setOutlineColor(sf::Color::White);
+		Player2.setOutlineThickness(5.f);
+	}
 }

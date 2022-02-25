@@ -18,6 +18,8 @@ using namespace std;
 class Cardevent
 {
 public:
+	int C;
+	int S;
 	void Start(bool, vector<Dolphin>& dolphin, vector<Shark>& shark, vector<Boardgame>&, Network&, sf::RenderWindow& window);
 	int PlusDolphin(vector<Dolphin>&, vector<Boardgame>&);
 	int PlusShark(vector<Shark>&, vector<Boardgame>&);
