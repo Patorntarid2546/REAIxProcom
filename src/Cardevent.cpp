@@ -123,10 +123,10 @@ void Cardevent::END(sf::RenderWindow& window)
 
 	if (S == C)
 	{
-		sf::Text Player2("DRAW", amazingfont1, 150);
-		Player2.setPosition(590, 800);
-		Player2.setFillColor(sf::Color::Black);
-		Player2.setOutlineColor(sf::Color::White);
-		Player2.setOutlineThickness(5.f);
+		sf::Text draw("DRAW", amazingfont1, 150);
+		draw.setPosition(590, 800);
+		draw.setFillColor(sf::Color::Black);
+		draw.setOutlineColor(sf::Color::White);
+		draw.setOutlineThickness(5.f);
 	}
 }
